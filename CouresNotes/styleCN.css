@@ -1,4 +1,5 @@
 head {
+   
     position: relative;
     max-width: 1300px;
     padding: 0px 30px;
@@ -10,7 +11,17 @@ head {
     justify-content: space-between;
 }
 
-
+ul li a{
+    
+    color: white;
+}
+ul li {
+    
+    color: white;
+}
+nav{background-color: blue;
+    padding: 0px 30px;
+}
 
 
 
