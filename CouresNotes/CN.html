@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-
-<link rel="stylesheet" href="styleCN.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+>
+<link rel="stylesheet" href="styleCN.css"/>
 
 
 <html>
@@ -9,27 +12,31 @@
 
 <head>
 
-
+<div>
 <nav class="menu1">
 
-  
-  <a href="">Home</a>
-  <a href="">Events Calendar</a>
-  <a href="">Study Group Finder</a>
-  <a href="">Course Reviews</a>
-  <a href="">Course Notes</a>
-  <a href="">Campus News</a>
-  <a href="">Club Activities</a>
-  <a href="">Student Marketplace</a>
+  <ul>
+    <li><strong>Course Notes       </strong></li>
+  </ul>
+  <ul >
+  <li><a href="">Home</a></li>
+  <li><a href="">Events Calendar</a></li>
+  <li><a href="">Study Group Finder</a></li>
+  <li><a href="">Course Reviews</a></li>
+  <li><a href="">Course Notes</a></li>
+  <li><a href="">Campus News</a></li>
+  <li><a href="">Club Activities</a></li>
+  <li><a href="">Student Marketplace</a></li>
+  </ul>
   
 </nav>
 
 </head>
-
+</div><br>
 
 <body>
 
-<h1>Course Notes</h1>
+
 
 
 <div class="search&sort">
@@ -45,68 +52,107 @@
 <option>Time</option>
 </select>
 
-</div>
-
-
-<div class="addNote">
-<h2>Add New Note</h2>
-<label>Title:</label>
-<input type="text" id="note-title" placeholder="Note title">
-
-<label>Course:</label>
-<input type="text" id="note-course" placeholder="Course name">
-
-<label>Content:</label>
-<textarea id="note-content" rows="4" placeholder="Write Note Here"></textarea>
-
-<label>Upload File:</label>
-<input type="file" id="noteFile">
-
-<button>Add Note</button>
-
-</div>
-
-
 <div class="noteList">
 
-<h2>All Notes</h2>
+  <h2>Notes Section</h2>
+  
+  <div class="note" >
+  <strong>HTML</strong><br>
+  Course: ITCS333<br>
+  Content: This is a summary of the HTML<br>
+  </div>
+  
+  <div class="note" >
+  <strong>Calculus - Derivatives</strong><br>
+  Course: Math 201<br>
+  Content: This is a summary of Math<br>
+  
+  </div>
+  
+  <div class="note" >
+  <strong>World History</strong><br>
+  Course: History 101<br>
+  Content: This is a summary of the History<br>
 
-<div class="note" >
-<strong>Introduction to Biology</strong><br>
-Course: Biology 101<br>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  </div>
+  
+  </div>
+  
+
+
+
+
 
 </div>
 
-<div class="note" >
-<strong>Calculus - Derivatives</strong><br>
-Course: Math 201<br>
-
-</div>
-
-<div class="note" >
-<strong>World History</strong><br>
-Course: History 101<br>
 
 
-</div>
 
-</div>
+
 
 
 <div class="notes">
 
-<h2>Note: HTML</h2>
-<p>Course: ITCS333</p>
-<p>Content: This is a summary of the HTML</p>
+<h2>The Note</h2><br>
+<p id="noteTitle"><strong>Title:</strong> HTML</p>
+<p id="noteCourse"><strong>Course: </strong>ITCS333</p>
+<p id="noteContent"><strong>Content:</strong> This is a summary of the HTML</p><br>
 
-<h3>Comments</h3>
-<div class="comment">Great summary! Helped me a lot. Dave</div>
-<div class="comment">Can you add more on cell reproduction?  Emma</div>
+<h3>Comments</h3><br>
+<div class="comment">Great summary! Helped me a lot</div>
+<div class="comment">Can you add more about HTML code?</div>
 
-<label >Add a Comment:</label>
-<textarea id="newComment" rows="3" placeholder="Add your comment"></textarea>
+<br><label >Add a Comment:</label>
+<textarea id="newComment" rows="3" placeholder="Add your comment" required></textarea>
 <button>Send</button>
 </div>
+
+
+
+
+
+
+<div class="addNote">
+  <form>
+  <h2>Add New Note</h2>
+  <label>Title:</label>
+  <input type="text" id="note-title" placeholder="Note title" required>
+  
+  <label>Course:</label>
+  <input type="text" id="note-course" placeholder="Course name" required>
+  
+  <label>Content:</label>
+  <textarea id="note-content" rows="4" placeholder="Write Note Here" required></textarea>
+  
+  <label>Upload File:</label>
+  <input type="file" id="noteFile">
+  
+  <button>Add Note</button>
+  
+</form>
+  
+  </div>
+
+
+
+
+
+
+
 
 </body>
 </html>
