@@ -6,4 +6,4 @@ Abdulla Fawzi Abdulla - 20197886 - Course Note
 
 
 
-Mohammed Hamood - 20174904 - Evants Calendar
+Mohammed Hamood - 20174904 - Events Calendar
