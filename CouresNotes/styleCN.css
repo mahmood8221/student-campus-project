@@ -6,10 +6,11 @@ head {
     height: 70px;
     line-height: 70px;
     margin: auto;
-    display: flex;
+    display:inline-flex;
     align-items: center;
     justify-content: space-between;
 }
+
 
 ul li a{
     
@@ -19,7 +20,7 @@ ul li {
     
     color: white;
 }
-nav{background-color: blue;
+nav{background-color: rgba(13,110,253,1);
     padding: 0px 30px;
 }
 
