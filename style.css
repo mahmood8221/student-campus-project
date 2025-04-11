@@ -1,0 +1,158 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+  
+  p {
+    margin: 0 0 1rem;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* Header Styling */
+  header {
+    background-color: #0d6efd; /* Bootstrap primary blue */
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  header p {
+    font-size: 1.25rem;
+  }
+  
+  /* Navigation Bar Styling */
+  .navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+  
+  /* Main Content Styling */
+  main {
+    min-height: 80vh;
+  }
+  
+  section {
+    margin-bottom: 2rem;
+  }
+  
+  /* Search Bar and Date Filter */
+  form.d-flex {
+    align-items: center;
+  }
+  
+  label.form-label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+  
+  input[type="search"],
+  input[type="date"] {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+  }
+  
+  button.btn {
+    padding: 0.375rem 0.75rem;
+  }
+  
+  /* Activity Cards */
+  .card {
+    transition: transform 0.3s ease-in-out;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-img-top {
+    height: 150px; /* Fixed height for consistent appearance */
+    object-fit: cover; /* Ensures images fit well */
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+  }
+  
+  .card-body small.text-muted {
+    font-size: 0.8rem;
+  }
+  
+  .card-body a.btn {
+    margin-top: 0.5rem;
+  }
+  
+  /* Pagination Styling */
+  .pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+  
+  .pagination .page-link {
+    color: #0d6efd;
+  }
+  
+  .pagination .page-item.disabled .page-link {
+    color: #6c757d;
+  }
+  
+  /* Item Creation Form */
+  #item-creation-form form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  #item-creation-form .form-label {
+    font-weight: bold;
+  }
+  
+  #item-creation-form .form-control {
+    margin-bottom: 1rem;
+  }
+  
+  #item-creation-form .btn {
+    margin-right: 0.5rem;
+  }
+  
+  /* Footer Styling */
+  footer {
+    background-color: #343a40; /* Bootstrap dark gray */
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  
+  footer p {
+    margin: 0;
+  }
