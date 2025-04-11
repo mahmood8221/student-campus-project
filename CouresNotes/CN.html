@@ -42,36 +42,53 @@
 
 <div class="search&sort">
 
+
+
+
+
 <label>Search Notes:</label>
 <input type="text" id="search" placeholder="Search by title, course, etc.">
+
+
 
 <label>Sort By:</label>
 
 <select id="sort">
-<option>Course</option>
-<option>Title</option>
-<option>Time</option>
+  <option>None</option>
+<option>A-Z</option>
+<option>Z-A</option>
+<option>Old-New</option>
+<option>New-Old</option>
 </select>
+
+
+
 
 <div class="noteList">
 
+
+
   <h2>Notes Section</h2>
+
+
+
+
   
   <div class="note" >
-  <strong>HTML</strong><br>
+  <strong>HTML</strong><br><br>
   Course: ITCS333<br>
   Content: This is a summary of the HTML<br>
   </div>
   
   <div class="note" >
-  <strong>Calculus - Derivatives</strong><br>
+  <strong>Calculus - Derivatives</strong><br><br>
   Course: Math 201<br>
   Content: This is a summary of Math<br>
   
   </div>
   
   <div class="note" >
-  <strong>World History</strong><br>
+  <strong>World History</strong><br><br>
   Course: History 101<br>
   Content: This is a summary of the History<br>
 
@@ -104,32 +121,16 @@
 
 
 
-
-
-<div class="notes">
-
-<h2>The Note</h2><br>
-<p id="noteTitle"><strong>Title:</strong> HTML</p>
-<p id="noteCourse"><strong>Course: </strong>ITCS333</p>
-<p id="noteContent"><strong>Content:</strong> This is a summary of the HTML</p><br>
-
-<h3>Comments</h3><br>
-<div class="comment">Great summary! Helped me a lot</div>
-<div class="comment">Can you add more about HTML code?</div>
-
-<br><label >Add a Comment:</label>
-<textarea id="newComment" rows="3" placeholder="Add your comment" required></textarea>
-<button>Send</button>
-</div>
-
-
-
-
-
-
 <div class="addNote">
+
+
   <form>
+
+
   <h2>Add New Note</h2>
+
+
+
   <label>Title:</label>
   <input type="text" id="note-title" placeholder="Note title" required>
   
@@ -141,8 +142,12 @@
   
   <label>Upload File:</label>
   <input type="file" id="noteFile">
+
+
   
   <button>Add Note</button>
+
+
   
 </form>
   
