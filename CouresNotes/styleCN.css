@@ -1,98 +1,183 @@
-haed{
-   
-    position: relative;
-    max-width: 1300px;
-    padding: 0px 30px;
-    height: 70px;
-    line-height: 70px;
-    margin: auto;
-    display:inline-flex;
-    align-items: center;
-    justify-content: space-between;
+
+body {
+  margin-top: 80px;
+}
+
+.content-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 
-ul li a{
-    
-    color: white;
-}
-ul li {
-    
-    color: white;
-}
 .menu-bar {
-    position: fixed;      
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(13,110,253,1);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 30px;
-    z-index: 1000;        
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .menu-bar ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .menu-bar li {
-    margin-right: 20px;
-  }
-  
-  .menu-bar a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .menu-bar a:hover {
-    text-decoration: underline;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(13, 110, 253, 1);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-bar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-bar li {
+  margin-right: 20px;
+}
+
+.menu-bar a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu-bar a:hover {
+  text-decoration: underline;
+}
 
 
+ul li,
+ul li a {
+  color: white;
+}
 
-input[type="text"], select, textarea {
-width: 100%;
-padding: 8px;
-margin-top: 5px;
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  max-width: auto;
+  padding: 4px;
+  margin-top: 5px;
 }
 
 input[type="file"] {
-margin-top: 10px;
+  margin-top: 10px;
 }
 
 button {
-margin-top: 10px;
-padding: 10px 20px;
-color: rgba(13,110,253,1);
-background-color: white ;
-border-color: rgba(13,110,253,1);
+  margin-top: 10px;
+  padding: 10px 20px;
+  color: rgba(13, 110, 253, 1);
+  background-color: white;
+  border-color: rgba(13, 110, 253, 1);
 }
 
-
-button:hover{
-    
-    color: white;
-    background-color: rgba(13,110,253,1);
-    border-color: white;
-}
-
-div {
-margin-bottom: 30px;
-background-color: #fff;
-padding: 20px;
-border-radius: 6px;
-box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+button:hover {
+  color: white;
+  background-color: rgba(13, 110, 253, 1);
+  border-color: white;
 }
 
 
 
-body {
-    margin-top: 80px;
-  }
+.searchNsort,
+.section,
+.addNote {
+  width: 85%;
+  margin: 0 auto;         /* This centers it */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.section div{
+  width: 100%;
+  margin-bottom: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+
+
+.searchNsort {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+ 
+}
+
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group input,
+.filter-group select {
+  max-width: 250px;
+}
+
+
+.inline-field input,
+.inline-field select {
+  width: 200px;
+}
+
+.inline-field label {
+  display: inline-block;
+  min-width: 100px;
+}
+
+
+
+head {
+  position: relative;
+  max-width: 1300px;
+  padding: 0px 30px;
+  height: 70px;
+  line-height: 70px;
+  margin: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.label0 {
+  display: inline-block;
+  min-width: 100px; 
+  margin-right: 10px; 
+  text-align: right; 
+}
+
+.inline-field {
+  display: flex;
+  align-items: center; 
+  margin-bottom: 15px; 
+}
+
+#search {
+  max-width: 600px;
+  height: 40px;
+  font-size: 15px;
+  flex-grow: 1; 
+}
+
+.sort {
+  max-width: 600px;
+  height: 40px;
+  font-size: 15px;
+  
+  
+}
+
+
