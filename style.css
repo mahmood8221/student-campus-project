@@ -1,0 +1,140 @@
+/*Search*/
+.search-container {
+	display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+}
+        
+.search-container input[type="search"] {
+	flex-grow: 1;
+      min-width: 200px;
+ }
+        
+.filter-group {
+	display: flex;
+      gap: 1rem;
+      align-items: center;
+}
+
+
+
+
+/*Navigation*/
+nav {background-color: rgba(13,110,253,1);}
+
+nav ul li{color:white;}
+
+nav ul li a{color:white;}
+
+nav ul li a:hover{color: rgba(255, 255, 255, 0.9);}
+nav ul li a:active{background: rgba(0, 0, 0, 0.15);
+      font-weight: bold;}
+
+/*footer*/
+footer{color: white;
+	background-color:black;
+	text-align: center;}
+
+
+/*Featured Groups Section*/  
+.group-featured {
+    margin-top: 2rem;
+}
+
+.group-card {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid rgba(13,110,253,1);
+}
+
+.group-card h3 {
+    margin-top: 0;
+    color: rgba(13,110,253,1);
+}
+
+.group-card button {
+    background-color: rgba(13,110,253,1);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.group-card button:hover {
+    background-color: #0b5ed7;
+}
+
+
+
+.featured-section {
+    margin-top: 2rem;
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 5px;
+}
+
+.section-header {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #212529; /* Dark gray color */
+    font-size: 1.5rem;
+}
+
+.group-featured {
+    margin-top: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*Create Group*/
+.create-group {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 5px;
+    margin: 2rem 0;
+    
+}
+
+.create-group h2 {
+    margin-top: 0;
+}
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.create-button {
+    background-color: rgba(13,110,253,1);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.create-button:hover {
+    background-color: #0b5ed7;
+}
+

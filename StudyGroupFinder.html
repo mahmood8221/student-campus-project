@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+	<link href = "style.css" rel="stylesheet">
+	<title>Campus Hub - Study Group Finder</title>
+</head>
+<body>
+	<!-- Navigation Bar -->
+	<nav class="container-fluid">
+		<ul>
+			<li><strong>Campus Hub</strong></li>
+		</ul>
+		<ul>
+			
+			<li><a href="">Home</a></li>
+			<li><a href="">Events Calendar</a></li>
+			<li><a href="">Study Group Finder</a></li>
+			<li><a href="">Course Reviews</a></li>
+			<li><a href="">Course Notes</a></li>
+			<li><a href="">Campus News</a></li>
+			<li><a href="">Club Activities</a></li>
+			<li><a href="">Student Marketplace</a></li>
+
+		</ul>
+	</nav>
+
+	<main class="container">
+		<h1>Study Groups</h1>
+		<p>Join study groups to collaborate with other students and ace your courses</p>
+
+		<!-- Filter &  Sort -->
+		<form>
+			<div class="search-container">
+				<input type="search" placeholder="search study groups..">
+				
+				<div class="filter-group">
+					
+					<select>
+
+						<option>Filter by group size</option>
+						<option>Small (2-5)</option>
+						<option>Medium (6-10)</option>
+						<option>Large (10+)</option>
+					</select>
+				</div>
+
+				<div class="filter-group">
+					
+					<select>
+						<option>Sort by</option>
+						<option>Newest first</option>
+						<option>Oldest first</option>
+						<option>Most members</option>
+						<option>Fewest members</option>
+					</select>
+				</div>
+			</div>
+		</form>
+
+
+
+		<!-- Featured Study Groups  -->
+		<section class="featured-section">
+			<h2 class="section-header">Featured Study Groups</h2>
+	        <div class="group-featured">
+	            <article class="group-card">
+	                <h3>CS 113 Study Group</h3>
+	                <p><strong>Course:</strong> Computer Programming I</p>
+	                <p><strong>Members:</strong> 8</p>
+	                <p><strong>Meets:</strong> Mondays 3-5pm, Library Room 202</p>
+	                <button>Join Group</button>
+	            </article>
+
+	            <article class="group-card">
+	                <h3>Math Study Circle</h3>
+	                <p><strong>Course:</strong> Calculus II</p>
+	                <p><strong>Members:</strong> 5</p>
+	                <p><strong>Meets:</strong> Wednesdays 4-6pm, Online</p>
+	                <button>Join Group</button>
+	            </article>
+
+	            <article class="group-card">
+	                <h3>Biology Study Team</h3>
+	                <p><strong>Course:</strong> General Biology</p>
+	                <p><strong>Members:</strong> 12</p>
+	                <p><strong>Meets:</strong> Fridays 1-3pm, Science Building 305</p>
+	                <button>Join Group</button>
+	            </article>
+	        </div>
+	    </section>
+
+
+        <!-- Create Study Group Section -->
+        <section class="create-group">
+            <h2>Create a New Study Group</h2>
+            <form class="create-form">
+                <div class="form-grid">
+                    <label for="group-name">
+                        Group Name
+                        <input type="text" id="group-name" placeholder="e.g. CS113 Study Group" required>
+                    </label>
+                    
+                    <label for="course-name">
+                        Course
+                        <input type="text" id="course-name" placeholder="Course name/number" required>
+                    </label>
+                </div>
+
+                <label for="description">
+                    Description
+                    <textarea id="description" placeholder="What will your group focus on?"></textarea>
+                </label>
+                
+                <div class="form-grid">
+                    <label for="meeting-time">
+                        Meeting Time
+                        <input type="text" id="meeting-time" placeholder="e.g. Mondays 3-5pm">
+                    </label>
+                    
+                    <label for="location">
+                        Location
+                        <input type="text" id="location" placeholder="Building/Room or Online">
+                    </label>
+                </div>
+                
+                <button type="submit" class="create-button">Create Group</button>
+            </form>
+        </section>
+                
+		
+		
+
+	</main>
+
+	<footer class="container-fluid">
+        <small>© 2025 Campus Hub. Built by the Students, for the Students.</small>
+    </footer>
+
+</body>
+</html>
