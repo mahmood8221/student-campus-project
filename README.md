@@ -20,3 +20,5 @@ Salman Ali Alhawaj - 202009537 - Student MarketPlace
 
 Abdulla Ali Abdulla - 20196366 - Course Reviews
 
+Duaij Khalifa Buqais - 20186990 - Student Group Finder
+
