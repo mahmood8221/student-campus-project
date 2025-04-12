@@ -107,13 +107,7 @@ button:hover {
 
 
 
-.searchNsort {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  flex-wrap: wrap;
- 
-}
+
 
 
 .filter-group {
@@ -132,10 +126,7 @@ button:hover {
   width: 200px;
 }
 
-.inline-field label {
-  display: inline-block;
-  min-width: 100px;
-}
+
 
 
 
@@ -152,12 +143,7 @@ head {
 }
 
 
-.label0 {
-  display: inline-block;
-  min-width: 100px; 
-  margin-right: 10px; 
-  text-align: right; 
-}
+
 
 .inline-field {
   display: flex;
@@ -166,18 +152,32 @@ head {
 }
 
 #search {
+  border-color: rgba(13, 110, 253, 1);
+  
+
   max-width: 600px;
-  height: 40px;
+  height: 45px;
   font-size: 15px;
   flex-grow: 1; 
+  
 }
 
 .sort {
+
+  border-color: rgba(13, 110, 253, 1);
   max-width: 600px;
-  height: 40px;
+  height: 45px;
   font-size: 15px;
   
   
 }
 
 
+.searchNsort {
+
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  gap: 100px; 
+  height: 100px; 
+}
