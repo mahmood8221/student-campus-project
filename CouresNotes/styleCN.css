@@ -1,4 +1,4 @@
-head {
+haed{
    
     position: relative;
     max-width: 1300px;
@@ -20,9 +20,40 @@ ul li {
     
     color: white;
 }
-nav{background-color: rgba(13,110,253,1);
-    padding: 0px 30px;
-}
+.menu-bar {
+    position: fixed;      
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(13,110,253,1);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    z-index: 1000;        
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-bar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .menu-bar li {
+    margin-right: 20px;
+  }
+  
+  .menu-bar a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .menu-bar a:hover {
+    text-decoration: underline;
+  }
 
 
 
@@ -62,3 +93,6 @@ box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 
 
 
+body {
+    margin-top: 80px;
+  }
