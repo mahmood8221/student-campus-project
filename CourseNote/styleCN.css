@@ -1,0 +1,209 @@
+/* styleCN.css */
+:root {
+  /* Color palette */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #bfdbfe;
+  --white: #ffffff;
+  
+  /* Shadows */
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  /* Border radius */
+  --radius: 0.5rem;
+  
+  /* Transitions */
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Styles */
+body {
+  background-color: #f9fafb;
+}
+
+
+/* Navbar Styles */
+.navbar {
+  background-color: var(--primary) !important;
+  box-shadow: var(--shadow);
+  padding: 1rem 2rem;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--white) !important;
+}
+
+.navbar-nav .nav-link {
+  color: var(--primary-light) !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: var(--transition);
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--white) !important;
+  transform: translateY(-2px);
+}
+
+/* Search and Sort Section */
+.searchNsort {
+  width: 85%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  gap: 100px; 
+  height: 100px; 
+}
+
+#search {
+  border-color: var(--primary);
+  display: block;
+  max-width: 600px;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.sort {
+  max-width: 400px;
+  --bs-form-select-bg-img: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e);
+  display: block;
+  width: 100%;
+  padding: .375rem 2.25rem .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: 16px 12px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+
+
+
+
+ 
+}
+
+/* Notes Section */
+.section {
+  width: 85%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.section div {
+  width: 100%;
+  margin-bottom: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Add Note Form */
+.addNote {
+  width: 85%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  position: relative; 
+  padding-bottom: 60px;
+}
+.buttonAdd{
+  border-radius: 6px;
+  position: absolute;       
+  bottom: 20px;             
+  right: 20px; 
+}
+
+input[type="text"],
+select,
+textarea {
+  border-color: var(--primary);
+  display: block;
+
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  
+}
+
+input[type="file"] {
+  margin-top: 10px;
+}
+
+/* Button Styles */
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  color: var(--primary);
+  background-color: white;
+  border-color: var(--primary);
+  transition: var(--transition);
+}
+
+button:hover {
+  color: white;
+  background-color: var(--primary);
+  border-color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+  
+  .searchNsort {
+    gap: 20px;
+    height: auto;
+    flex-direction: column;
+    padding: 15px;
+  }
+}
