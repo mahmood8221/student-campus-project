@@ -141,10 +141,14 @@ body {
   border-radius: 6px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
+  position: relative; 
+  padding-bottom: 60px;
 }
 .buttonAdd{
   border-radius: 6px;
-  
+  position: absolute;       
+  bottom: 20px;             
+  right: 20px; 
 }
 
 input[type="text"],
