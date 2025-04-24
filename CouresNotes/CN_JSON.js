@@ -1,15 +1,24 @@
 let notes = [];
+let customNotes = [];
 let currentPage = 1;
 const notesPerPage = 3;
 
-// DOM Elements
 const searchInput = document.getElementById('search');
 const sortSelect = document.querySelector('.sort');
 const notesContainer = document.querySelector('.section');
 const form = document.querySelector('form');
 const addButton = document.querySelector('.buttonAdd');
 
-// Event Listeners
+// Get static HTML notes and preserve them
+document.querySelectorAll('.note').forEach(noteEl => {
+  notes.push({
+    title: noteEl.querySelector('strong')?.innerText || 'Untitled',
+    course: (noteEl.innerHTML.match(/Course: (.*?)<br>/) || [])[1] || 'Unknown',
+    content: noteEl.innerHTML.split('Content: ')[1]?.split('<')[0] || 'No content',
+    html: noteEl.outerHTML
+  });
+});
+
 searchInput.addEventListener('input', renderNotes);
 sortSelect.addEventListener('change', renderNotes);
 addButton.addEventListener('click', handleAddNote);
@@ -28,7 +37,7 @@ function handleAddNote(e) {
     return;
   }
 
-  const newNote = {
+  const note = {
     title,
     course,
     content,
@@ -38,30 +47,35 @@ function handleAddNote(e) {
     } : null
   };
 
-  notes.unshift(newNote);
-  currentPage = 1;
+  customNotes.unshift(note);
   form.reset();
+  currentPage = 1;
   renderNotes();
 }
 
 function renderNotes() {
-  const filtered = filterAndSortNotes();
-  const paginated = paginate(filtered, currentPage, notesPerPage);
-  
-  notesContainer.innerHTML = '<h2>Notes Section</h2><br>' +
-    paginated.map(note => `
+  const combined = [...notes, ...customNotes.map(n => ({
+    ...n,
+    html: `
       <div class="note">
-        <strong>${note.title}</strong><br><br>
-        Course: ${note.course}<br>
-        Content: ${note.content}<br>
-        ${note.file ? `<a href="${note.file.url}" download="${note.file.name}">📎 ${note.file.name}</a>` : ''}
+        <strong>${n.title}</strong><br><br>
+        Course: ${n.course}<br>
+        Content: ${n.content}<br>
+        ${n.file ? `<a href="${n.file.url}" download="${n.file.name}">📎 ${n.file.name}</a>` : ''}
       </div>
-    `).join('') +
+    `
+  }))];
+
+  const filtered = filterAndSort(combined);
+  const paginated = paginate(filtered, currentPage, notesPerPage);
+
+  notesContainer.innerHTML = '<h2>Notes Section</h2><br>' +
+    paginated.map(n => n.html).join('') +
     renderPagination(filtered.length);
 }
 
-function filterAndSortNotes() {
-  let filtered = notes.filter(note =>
+function filterAndSort(list) {
+  let filtered = list.filter(note =>
     note.title.toLowerCase().includes(searchInput.value.toLowerCase())
   );
 
@@ -81,12 +95,12 @@ function renderPagination(total) {
   const pageCount = Math.ceil(total / notesPerPage);
   let buttons = '';
   for (let i = 1; i <= pageCount; i++) {
-    buttons += `<button onclick="changePage(${i})" ${i === currentPage ? 'disabled' : ''}>${i}</button>`;
+    buttons += `<button onclick="changePage(${i})" style="margin:5px; padding:6px 12px; border-radius:12px;" ${i === currentPage ? 'disabled' : ''}>${i}</button>`;
   }
   return `<div style="margin-top: 20px;">${buttons}</div>`;
 }
 
-window.changePage = function(page) {
+window.changePage = function (page) {
   currentPage = page;
   renderNotes();
-}
+};
