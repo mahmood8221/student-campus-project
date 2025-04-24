@@ -206,4 +206,19 @@ button:hover {
     flex-direction: column;
     padding: 15px;
   }
+
+  .section button {
+    border-radius: 12px;
+    padding: 6px 12px;
+    margin: 5px;
+    border: 1px solid var(--primary);
+    background-color: white;
+    color: var(--primary);
+    transition: var(--transition);
+  }
+  
+  .section button:hover {
+    background-color: var(--primary);
+    color: white;
+  }
 }
