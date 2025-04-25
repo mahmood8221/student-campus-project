@@ -23,7 +23,7 @@
         <li class="nav-item"><a class="nav-link" href="#">Study Group Finder</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Course Reviews</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Course Notes</a></li>
-        <li class="nav-item"><a class="nav-link active" href="#">Campus News</a></li>
+        <li class="nav-item"><a class="nav-link active" href="News.html">Campus News</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Club Activities</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Student Marketplace</a></li>
       </ul>
@@ -31,75 +31,75 @@
   </div>
 </nav>
 
-<!-- Main -->
+<!-- Main Content -->
 <main class="container main-content">
 
-  <!-- Filters -->
+  <!-- Controls Section -->
   <section class="controls-section">
     <div class="row g-3">
       <div class="col-md-6">
-        <input type="search" class="form-control" placeholder="Search news...">
+        <label for="searchInput" class="visually-hidden">Search news</label>
+        <input type="search" 
+               id="searchInput" 
+               class="form-control" 
+               placeholder="Search news..."
+               aria-label="Search news articles">
       </div>
+      
       <div class="col-md-3">
-        <select class="form-select">
-          <option selected>Filter by Category</option>
-          <option>Events</option>
-          <option>Announcements</option>
-          <option>Clubs</option>
+        <label for="filterCategory" class="visually-hidden">Filter by category</label>
+        <select class="form-select" id="filterCategory">
+          <option value="all">All Categories</option>
+          <option value="events">Events</option>
+          <option value="announcements">Announcements</option>
+          <option value="clubs">Clubs</option>
         </select>
       </div>
+      
       <div class="col-md-3">
-        <select class="form-select">
-          <option selected>Sort by</option>
-          <option>Newest</option>
-          <option>Oldest</option>
-          <option>Most Popular</option>
+        <label for="sortBy" class="visually-hidden">Sort articles</label>
+        <select class="form-select" id="sortBy">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="popular">Most Popular</option>
         </select>
       </div>
     </div>
   </section>
 
-  <!-- Add News -->
+  <!-- Add News Button -->
   <div class="add-news-btn">
-    <a href="NewsAdd/Add.html" class="btn btn-primary">+ Add News Article</a>
+    <a href="NewsAdd/Add.html" class="btn btn-primary">
+      + Add News Article
+    </a>
   </div>
 
-  <!-- News Cards -->
-  <section class="news-grid row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <!-- Loading State -->
+  <div class="loading-overlay d-none" id="loading">
+    <div class="spinner-border text-primary"></div>
+  </div>
 
-    <!-- News Card Example -->
-    <div class="col">
-      <article class="news-card animate">
-        <div class="card-header">Campus Life</div>
-        <img src="https://via.placeholder.com/400x200" alt="News Image">
-        <div class="card-content">
-          <div class="news-meta d-flex justify-content-between align-items-center mb-2">
-            <span class="badge bg-secondary">Events</span>
-            <div class="author d-flex align-items-center">
-              <img src="../assets/author.jpg" alt="Author" class="author-img me-2">
-              <span class="author-name">A. AlBahraini</span>
-            </div>
-          </div>
-          <h3>Spring Festival Highlights</h3>
-          <p class="news-date">April 10, 2025</p>
-          <p class="news-excerpt">Students gathered to celebrate spring with food, music, and cultural activities. Here are the highlights...</p>
-          <a href="NewsRead/Read.html" class="read-more">Read More →</a>
-        </div>
-      </article>
-    </div>
+  <!-- Error Message -->
+  <div class="alert alert-danger d-none mt-3" id="errorMessage"></div>
 
-    <!-- Repeat more cards as needed -->
-
+  <!-- Dynamic News Grid -->
+  <section class="news-grid row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="newsContainer">
+    <!-- JavaScript will populate this section -->
   </section>
 
   <!-- Pagination -->
   <nav class="pagination-section mt-5 d-flex justify-content-center">
-    <ul class="pagination">
-      <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <ul class="pagination" id="pagination">
+      <li class="page-item">
+        <button class="page-link" data-page="prev" aria-label="Previous page">
+          Previous
+        </button>
+      </li>
+      <li class="page-item">
+        <button class="page-link" data-page="next" aria-label="Next page">
+          Next
+        </button>
+      </li>
     </ul>
   </nav>
 </main>
