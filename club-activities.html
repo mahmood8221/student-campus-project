@@ -9,176 +9,180 @@
 </head>
 <body>
 
+  <!-- Header Section -->
   <header class="bg-primary text-white text-center py-4">
     <h1>Campus Hub</h1>
     <p class="lead">Club Activities Module</p>
   </header>
 
-
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Campus Hub</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Club Activities</a>
+            <a class="nav-link" href="#club-activities">Club Activities</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#about">About</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-
+  <!-- Main Content -->
   <main class="container mt-5">
 
-   
-    <section id="main-listing" class="mb-5">
-      <h2 class="text-center mb-4">Club Activities</h2>
-
-   
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search activities..." aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit">Search</button>
-          </form>
-        </div>
-        <div class="col-md-6">
-          <form class="d-flex">
-            <label for="dateFilter" class="form-label me-2 align-self-center">Filter by Date:</label>
-            <input type="date" class="form-control me-2" id="dateFilter" placeholder="Select a date">
-            <button class="btn btn-outline-secondary" type="submit">Filter</button>
-          </form>
-        </div>
-      </div>
-
-    
-      <div class="row">
-       
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="images2/career-fair.png" class="card-img-top" alt="Career Fair 2024">
-            <div class="card-body">
-              <h5 class="card-title">Career Fair 2024</h5>
-              <p class="card-text">An event connecting students with potential employers and graduate schools.</p>
-              <p class="card-text"><small class="text-muted">Date: May 5, 2024</small></p>
-              <p class="card-text"><small class="text-muted">Location: Student Center Ballroom</small></p>
-              <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
-        </div>
-
-       
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="images2/culturalfest.png" class="card-img-top" alt="Cultural Fest">
-            <div class="card-body">
-              <h5 class="card-title">Cultural Fest</h5>
-              <p class="card-text">A celebration of diverse cultures through music, dance, food, and art.</p>
-              <p class="card-text"><small class="text-muted">Date: March 15, 2024</small></p>
-              <p class="card-text"><small class="text-muted">Location: University Auditorium</small></p>
-              <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
-        </div>
-
-       
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="images2/Environmental-Cleanup-Drive.png" class="card-img-top" alt="Environmental Cleanup Drive">
-            <div class="card-body">
-              <h5 class="card-title">Environmental Cleanup Drive</h5>
-              <p class="card-text">A community service initiative to clean up local parks and promote sustainability.</p>
-              <p class="card-text"><small class="text-muted">Date: March 1, 2024</small></p>
-              <p class="card-text"><small class="text-muted">Location: Riverside Park</small></p>
-              <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
-        </div>
-
-       
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="images2/hackathon.png" class="card-img-top" alt="Hackathon 2024">
-            <div class="card-body">
-              <h5 class="card-title">Hackathon 2024</h5>
-              <p class="card-text">A 24-hour coding competition to solve real-world problems using technology.</p>
-              <p class="card-text"><small class="text-muted">Date: April 10–11, 2024</small></p>
-              <p class="card-text"><small class="text-muted">Location: Engineering Building, Room 205</small></p>
-              <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
-        </div>
-
-       
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <img src="images2/yoga-and-wellness-workshop.png" class="card-img-top" alt="Yoga and Wellness Workshop">
-            <div class="card-body">
-              <h5 class="card-title">Yoga and Wellness Workshop</h5>
-              <p class="card-text">A session focused on mindfulness, relaxation, and physical fitness.</p>
-              <p class="card-text"><small class="text-muted">Date: February 20, 2024</small></p>
-              <p class="card-text"><small class="text-muted">Location: Campus Green Lawn</small></p>
-              <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-  
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-      </nav>
+    <!-- Home Section -->
+    <section id="home-section" class="mb-5">
+      <h2 class="text-center mb-4">Welcome to Campus Hub</h2>
+      <p class="text-center">Discover exciting club activities, manage your events, and connect with fellow students!</p>
     </section>
 
-    
-    <section id="item-creation-form" class="mb-5">
-      <h2>Create New Activity</h2>
-      <form>
-        <div class="mb-3">
-          <label for="activityTitle" class="form-label">Activity Title</label>
-          <input type="text" class="form-control" id="activityTitle" placeholder="Enter title" required>
+    <!-- Club Activities Section -->
+    <section id="main-listing" class="mb-5" style="display:none;">
+      <h2 class="text-center mb-4">Club Activities</h2>
+
+      <!-- Loading Spinner -->
+      <div id="loading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
-        <div class="mb-3">
-          <label for="activityDescription" class="form-label">Description</label>
-          <textarea class="form-control" id="activityDescription" rows="3" placeholder="Enter description" required></textarea>
+        <p>Loading activities...</p>
+      </div>
+
+      <!-- Search + Filter + Sort -->
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <input id="searchInput" class="form-control" type="search" placeholder="Search activities..." aria-label="Search">
+          <button class="btn btn-outline-primary mt-2" type="button" id="searchButton">Search</button>
         </div>
-        <div class="mb-3">
-          <label for="activityDate" class="form-label">Date</label>
-          <input type="date" class="form-control" id="activityDate" required>
+        <div class="col-md-4">
+          <input id="dateFilter" type="date" class="form-control" placeholder="Select date">
+          <button class="btn btn-outline-secondary mt-2" type="button" id="filterButton">Filter</button>
+          <button class="btn btn-outline-secondary mt-2" id="clearFilters">Clear Filters</button>
         </div>
-        <div class="mb-3">
-          <label for="activityLocation" class="form-label">Location</label>
-          <input type="text" class="form-control" id="activityLocation" placeholder="Enter location" required>
+        <div class="col-md-4">
+          <select id="sortOptions" class="form-select">
+            <option value="">-- Sort By --</option>
+            <option value="titleAsc">Title A-Z</option>
+            <option value="titleDesc">Title Z-A</option>
+            <option value="dateAsc">Date (Oldest First)</option>
+            <option value="dateDesc">Date (Newest First)</option>
+          </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="#main-listing" class="btn btn-secondary">Cancel</a>
-      </form>
+      </div>
+
+      <!-- Activities List -->
+      <div class="row" id="activity-list"></div>
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-4">
+          <li class="page-item" id="prevPage">
+            <a class="page-link" href="#">Previous</a>
+          </li>
+          <li class="page-item" id="nextPage">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Create New Activity Form -->
+      <section id="item-creation-form" class="mt-5">
+        <h2>Create New Activity</h2>
+        <form id="createActivityForm">
+          <div class="mb-3">
+            <label for="activityTitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="activityTitle" required>
+            <div id="titleError" class="text-danger small"></div>
+          </div>
+          <div class="mb-3">
+            <label for="activityDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="activityDescription" rows="3" required></textarea>
+            <div id="descriptionError" class="text-danger small"></div>
+          </div>
+          <div class="mb-3">
+            <label for="activityDate" class="form-label">Date</label>
+            <input type="date" class="form-control" id="activityDate" required>
+            <div id="dateError" class="text-danger small"></div>
+          </div>
+          <div class="mb-3">
+            <label for="activityLocation" class="form-label">Location</label>
+            <input type="text" class="form-control" id="activityLocation" required>
+            <div id="locationError" class="text-danger small"></div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a href="#main-listing" class="btn btn-secondary">Cancel</a>
+        </form>
+      </section>
+
+    </section>
+
+    <!-- About Section -->
+    <section id="about-section" class="mb-5" style="display:none;">
+      <h2 class="text-center mb-4">About Campus Hub</h2>
+      <p class="text-center">Campus Hub is designed to help students explore, organize, and participate in various club activities. It provides dynamic tools for discovering events, submitting new activities, and connecting with the university community!</p>
     </section>
 
   </main>
 
-  
+  <!-- Detail Modal (for view details) -->
+  <div id="detail-modal"></div>
+
+  <!-- Edit Modal (for editing) -->
+  <div class="modal fade" id="editActivityModal" tabindex="-1" aria-labelledby="editActivityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="editActivityForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editActivityModalLabel">Edit Activity</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="editActivityId">
+            <div class="mb-3">
+              <label for="editActivityTitle" class="form-label">Title</label>
+              <input type="text" class="form-control" id="editActivityTitle" required>
+            </div>
+            <div class="mb-3">
+              <label for="editActivityDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="editActivityDescription" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editActivityDate" class="form-label">Date</label>
+              <input type="date" class="form-control" id="editActivityDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="editActivityLocation" class="form-label">Location</label>
+              <input type="text" class="form-control" id="editActivityLocation" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer class="bg-dark text-white text-center py-4 mt-5">
     <p>&copy; 2024 Campus Hub. All rights reserved.</p>
   </footer>
 
-  
-  
+  <!-- Bootstrap + JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="club-activities.js" defer></script>
+
 </body>
 </html>
