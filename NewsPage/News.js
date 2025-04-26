@@ -1,53 +1,93 @@
+// ==============================
+// Campus Hub - News Module (Improved)
+// ==============================
+
+// Constants
 const API_URL = 'https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news';
 const ITEMS_PER_PAGE = 6;
 
+// State Management
 const state = {
   currentPage: 1,
   totalPages: 1,
+  articles: [],
+  filteredArticles: [],
 };
 
-async function fetchArticles(page = 1, limit = ITEMS_PER_PAGE) {
+// DOM Elements
+const newsContainer = document.getElementById('news-container');
+const skeletonLoader = document.getElementById('skeletonLoader');
+const pagination = document.getElementById('pagination');
+const searchInput = document.getElementById('searchInput'); // Assume you have it
+const filterSelect = document.getElementById('filterSelect'); // Assume you have it
+const errorMessage = document.getElementById('errorMessage'); // Optional error display
+
+// ==============================
+// Fetch Data
+// ==============================
+
+async function fetchArticles() {
+  showSkeletonLoader();
   try {
-    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
+    const response = await fetch(`${API_URL}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch news articles.');
+    }
+
     const data = await response.json();
 
-    // Since MockAPI doesn't return total count headers, we hardcode the total manually for now
-    const totalItems = 28; // Adjust this if your data size changes
-    state.totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    state.articles = data;
+    state.filteredArticles = data; // Initially, no filter applied
+    state.totalPages = Math.ceil(state.filteredArticles.length / ITEMS_PER_PAGE);
 
-    return data;
+    renderArticles();
+    renderPagination();
   } catch (error) {
     console.error('Error fetching articles:', error);
-    return [];
+    showError(error.message);
+  } finally {
+    hideSkeletonLoader();
   }
 }
 
-function renderArticles(articles) {
-  const container = document.getElementById('news-container');
-  container.innerHTML = '';
+// ==============================
+// Render Functions
+// ==============================
 
-  articles.forEach(article => {
+function renderArticles() {
+  newsContainer.innerHTML = '';
+
+  const start = (state.currentPage - 1) * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE;
+  const articlesToDisplay = state.filteredArticles.slice(start, end);
+
+  if (articlesToDisplay.length === 0) {
+    newsContainer.innerHTML = `<p>No news articles found.</p>`;
+    return;
+  }
+
+  articlesToDisplay.forEach(article => {
     const card = document.createElement('div');
-    card.className = 'news-card';
+    card.className = 'news-card animate';
 
     card.innerHTML = `
       <img src="${article.image}" alt="${article.title}" class="news-image" />
       <div class="news-info">
         <h3>${article.title}</h3>
         <p><strong>By:</strong> ${article.author}</p>
-        <p><strong>Date:</strong> ${new Date(article.date * 1000).toLocaleDateString()}</p>
+        <p><strong>Date:</strong> ${formatDate(article.date)}</p>
         <p><strong>Category:</strong> ${article.category}</p>
         <p><strong>Views:</strong> ${article.views}</p>
-        <p>${article.content}</p>
+        <p>${truncateContent(article.content, 120)}</p>
+        <a href="#" class="read-more" onclick="viewDetails('${article.id}')">Read more →</a>
       </div>
     `;
 
-    container.appendChild(card);
+    newsContainer.appendChild(card);
   });
 }
 
 function renderPagination() {
-  const pagination = document.getElementById('pagination');
   pagination.innerHTML = '';
 
   for (let i = 1; i <= state.totalPages; i++) {
@@ -59,18 +99,86 @@ function renderPagination() {
   }
 }
 
-async function changePage(pageNumber) {
+// ==============================
+// Utility Functions
+// ==============================
+
+function formatDate(timestamp) {
+  const date = new Date(timestamp * 1000);
+  return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function truncateContent(content, limit) {
+  return content.length > limit ? content.substring(0, limit) + '...' : content;
+}
+
+function showError(message) {
+  if (errorMessage) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    setTimeout(() => errorMessage.style.display = 'none', 4000);
+  }
+}
+
+function viewDetails(id) {
+  const article = state.articles.find(a => a.id === id);
+  if (!article) return;
+
+  sessionStorage.setItem('selectedNews', JSON.stringify(article));
+  window.location.href = 'ViewDetails.html';
+}
+
+// ==============================
+// Pagination Control
+// ==============================
+
+function changePage(pageNumber) {
   state.currentPage = pageNumber;
-  const articles = await fetchArticles(pageNumber);
-  renderArticles(articles);
+  renderArticles();
   renderPagination();
 }
 
-async function init() {
-  const articles = await fetchArticles(state.currentPage);
-  renderArticles(articles);
+// ==============================
+// Search and Filter
+// ==============================
+
+function applyFilters() {
+  const searchTerm = (searchInput?.value || '').toLowerCase();
+  const selectedCategory = filterSelect?.value || 'all';
+
+  state.filteredArticles = state.articles.filter(article => {
+    const matchesSearch = article.title.toLowerCase().includes(searchTerm) ||
+                           article.content.toLowerCase().includes(searchTerm);
+    const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  state.currentPage = 1;
+  state.totalPages = Math.ceil(state.filteredArticles.length / ITEMS_PER_PAGE);
+
+  renderArticles();
   renderPagination();
 }
 
-// Initialize on load
-document.addEventListener('DOMContentLoaded', init);
+searchInput?.addEventListener('input', applyFilters);
+filterSelect?.addEventListener('change', applyFilters);
+
+// ==============================
+// Loading Skeleton Control
+// ==============================
+
+function showSkeletonLoader() {
+  if (skeletonLoader) skeletonLoader.style.display = 'block';
+  if (newsContainer) newsContainer.style.display = 'none';
+}
+
+function hideSkeletonLoader() {
+  if (skeletonLoader) skeletonLoader.style.display = 'none';
+  if (newsContainer) newsContainer.style.display = 'flex';
+}
+
+// ==============================
+// Initialization
+// ==============================
+
+document.addEventListener('DOMContentLoaded', fetchArticles);

@@ -16,7 +16,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#">Events Calendar</a></li>
@@ -32,22 +32,15 @@
 </nav>
 
 <!-- Main Content -->
-<main class="container main-content">
+<main class="container my-5">
 
   <!-- Controls Section -->
-  <section class="controls-section">
+  <section class="controls-section mb-4">
     <div class="row g-3">
       <div class="col-md-6">
-        <label for="searchInput" class="visually-hidden">Search news</label>
-        <input type="search" 
-               id="searchInput" 
-               class="form-control" 
-               placeholder="Search news..."
-               aria-label="Search news articles">
+        <input type="search" id="searchInput" class="form-control" placeholder="Search news..." aria-label="Search news articles">
       </div>
-      
       <div class="col-md-3">
-        <label for="filterCategory" class="visually-hidden">Filter by category</label>
         <select class="form-select" id="filterCategory">
           <option value="all">All Categories</option>
           <option value="events">Events</option>
@@ -55,9 +48,7 @@
           <option value="clubs">Clubs</option>
         </select>
       </div>
-      
       <div class="col-md-3">
-        <label for="sortBy" class="visually-hidden">Sort articles</label>
         <select class="form-select" id="sortBy">
           <option value="newest">Newest First</option>
           <option value="oldest">Oldest First</option>
@@ -67,54 +58,63 @@
     </div>
   </section>
 
+  <!-- Skeleton Loader -->
+<div id="skeletonLoader" style="display: none;">
+  <div class="row">
+    <!-- Repeat this card several times for effect -->
+    <div class="col-md-4 mb-4" aria-hidden="true">
+      <div class="news-card skeleton">
+        <div class="card-header skeleton" style="height: 3rem;"></div>
+        <div class="skeleton" style="height: 200px;"></div>
+        <div class="card-content p-3">
+          <div class="skeleton" style="width: 60%; height: 1.5rem; margin-bottom: 1rem;"></div>
+          <div class="skeleton" style="width: 80%; height: 1rem; margin-bottom: 0.5rem;"></div>
+          <div class="skeleton" style="width: 70%; height: 1rem; margin-bottom: 0.5rem;"></div>
+          <div class="skeleton" style="width: 50%; height: 1rem;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- You can copy the col-md-4 div to add 6, 9, etc., depending on how many you want -->
+  </div>
+</div>
+
   <!-- Add News Button -->
-  <div class="add-news-btn">
-    <a href="NewsAdd/Add.html" class="btn btn-primary">
-      + Add News Article
-    </a>
+  <div class="text-end mb-4">
+    <a href="NewsAdd/Add.html" class="btn btn-primary">+ Add News Article</a>
   </div>
 
-  <!-- Loading State -->
+  <!-- Loading Overlay -->
   <div class="loading-overlay d-none" id="loading">
-    <div class="spinner-border text-primary"></div>
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
 
   <!-- Error Message -->
-  <div class="alert alert-danger d-none mt-3" id="errorMessage"></div>
+  <div class="alert alert-danger d-none" id="errorMessage"></div>
 
   <!-- Dynamic News Grid -->
-  <section class="news-grid row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="newsContainer">
-    <!-- JavaScript will populate this section -->
-    <div id="news-container" class="news-grid"></div>
-    <div id="pagination" class="pagination-controls"></div>
-    
+  <section id="news-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <!-- JavaScript will populate cards here -->
   </section>
 
-  <!-- Pagination -->
+  <!-- Pagination Controls -->
   <nav class="pagination-section mt-5 d-flex justify-content-center">
     <ul class="pagination" id="pagination">
-      <li class="page-item">
-        <button class="page-link" data-page="prev" aria-label="Previous page">
-          Previous
-        </button>
-      </li>
-      <li class="page-item">
-        <button class="page-link" data-page="next" aria-label="Next page">
-          Next
-        </button>
-      </li>
+      <!-- JavaScript will populate pagination buttons here -->
     </ul>
   </nav>
+
 </main>
 
-<script src="News.js"></script>
-
 <!-- Footer -->
-<footer class="main-footer text-center">
+<footer class="main-footer text-center py-4 bg-dark text-white mt-5">
   <div class="container">
     <small>© 2025 Campus Hub. All rights reserved.</small>
   </div>
 </footer>
+
+<script src="News.js"></script>
 
 </body>
 </html>
