@@ -4,13 +4,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('.news-form');
     const publishButton = form.querySelector('button[type="submit"]');
     const imageInput = document.getElementById('imageUpload');
+    let uploadedImageBase64 = '';
   
-    // Show image preview when a file is selected
+    // Show image preview and save base64
     imageInput.addEventListener('change', function () {
       const file = imageInput.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
+          uploadedImageBase64 = e.target.result; // Save base64 image
+  
           let existingPreview = document.getElementById('imagePreview');
           if (!existingPreview) {
             existingPreview = document.createElement('img');
@@ -19,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             existingPreview.style.marginTop = '10px';
             imageInput.parentElement.appendChild(existingPreview);
           }
-          existingPreview.src = e.target.result;
+          existingPreview.src = uploadedImageBase64;
         };
         reader.readAsDataURL(file);
       }
@@ -34,78 +37,72 @@ document.addEventListener('DOMContentLoaded', function () {
       const contentField = document.getElementById('content');
       const authorField = document.getElementById('author');
       const publishDateField = document.getElementById('publishDate');
-      const imageFile = imageInput.files[0];
   
-      // Reset all field styles
+      // Reset field styles
       [titleField, categoryField, contentField, authorField, publishDateField].forEach(field => {
         field.style.borderColor = '';
       });
   
-      // Validate Form Fields
+      // Validation
       let hasError = false;
-  
-      if (!titleField.value.trim()) {
-        titleField.style.borderColor = 'red';
-        hasError = true;
-      }
-      if (!categoryField.value) {
-        categoryField.style.borderColor = 'red';
-        hasError = true;
-      }
-      if (!contentField.value.trim()) {
-        contentField.style.borderColor = 'red';
-        hasError = true;
-      }
-      if (!authorField.value.trim()) {
-        authorField.style.borderColor = 'red';
-        hasError = true;
-      }
-      if (!publishDateField.value) {
-        publishDateField.style.borderColor = 'red';
-        hasError = true;
-      }
+      if (!titleField.value.trim()) { titleField.style.borderColor = 'red'; hasError = true; }
+      if (!categoryField.value) { categoryField.style.borderColor = 'red'; hasError = true; }
+      if (!contentField.value.trim()) { contentField.style.borderColor = 'red'; hasError = true; }
+      if (!authorField.value.trim()) { authorField.style.borderColor = 'red'; hasError = true; }
+      if (!publishDateField.value) { publishDateField.style.borderColor = 'red'; hasError = true; }
   
       if (hasError) {
-        alert('Please fill in all the highlighted fields!');
+        Swal.fire({
+          icon: 'error',
+          title: 'Form Incomplete',
+          text: 'Please fill in all the required fields!',
+        });
         return;
       }
   
-      // Prepare Data to Send
-      const formData = new FormData();
-      formData.append('title', titleField.value.trim());
-      formData.append('category', categoryField.value);
-      formData.append('content', contentField.value.trim());
-      formData.append('author', authorField.value.trim());
-      formData.append('publishDate', publishDateField.value);
-  
-      if (imageFile) {
-        formData.append('image', imageFile);
-      }
+      // Prepare data
+      const newsData = {
+        title: titleField.value.trim(),
+        category: categoryField.value,
+        content: contentField.value.trim(),
+        author: authorField.value.trim(),
+        publishDate: publishDateField.value,
+        image: uploadedImageBase64 || null, // Optional
+      };
   
       try {
-        // Disable button and show loading
         publishButton.disabled = true;
         publishButton.innerHTML = 'Publishing...';
   
         const response = await fetch('https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news', {
           method: 'POST',
-          body: formData,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newsData),
         });
   
         if (!response.ok) {
-          throw new Error('Failed to publish the article.');
+          throw new Error('Failed to publish article.');
         }
   
-        alert('Article published successfully!');
-        form.reset(); // Clear the form
-        // Remove image preview if exists
-        const preview = document.getElementById('imagePreview');
-        if (preview) {
-          preview.remove();
-        }
+        // Show nice success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Article Published!',
+          text: 'Your article has been successfully added!',
+          confirmButtonText: 'Go to News',
+        }).then(() => {
+          window.location.href = '../News.html'; // Redirect after user clicks OK
+        });
+  
       } catch (error) {
         console.error(error);
-        alert('There was an error publishing the article.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Publish Failed',
+          text: 'There was an error publishing your article. Please try again.',
+        });
       } finally {
         publishButton.disabled = false;
         publishButton.innerHTML = 'Publish Article';
