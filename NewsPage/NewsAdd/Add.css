@@ -1,7 +1,16 @@
 @import url('../News.css');
 
+/* Main content area */
+.main-content {
+  padding: 3rem 5%;
+  background: var(--gray-50);
+  min-height: 100vh;
+}
+
+/* Form container */
 .add-news-form {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 2rem auto;
   padding: 2rem;
   background: white;
@@ -9,26 +18,31 @@
   box-shadow: var(--shadow);
 }
 
+/* Form Title */
 .form-title {
   color: var(--gray-800);
   font-weight: 700;
   border-bottom: 3px solid var(--primary);
   padding-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
+/* Form Cards */
 .form-card {
   background: var(--gray-100);
   border-radius: var(--radius-xl);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
 
+/* Form Labels */
 .news-form label {
   font-weight: 600;
   color: var(--gray-800);
   margin-bottom: 0.5rem;
 }
 
+/* Form Inputs and Selects */
 .form-control, .form-select {
   border: 2px solid var(--gray-200);
   border-radius: var(--radius);
@@ -41,11 +55,23 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+/* File Upload Area */
 .file-upload {
   position: relative;
   overflow: hidden;
+  border: 2px dashed var(--gray-300);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  background: var(--gray-50);
+  text-align: center;
+  transition: var(--transition);
 }
 
+.file-upload:hover {
+  background: var(--gray-100);
+}
+
+/* Upload Label */
 .upload-label {
   display: block;
   width: 100%;
@@ -71,20 +97,44 @@
   left: -9999px;
 }
 
+/* Form Actions (buttons at the bottom) */
 .form-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  gap: 1rem;
   padding-top: 2rem;
   border-top: 2px solid var(--gray-200);
 }
 
+/* Bigger Buttons */
 .btn-lg {
-  padding: 0.75rem 2rem;
+  padding: 0.75rem 2.5rem;
   font-size: 1.1rem;
   border-radius: var(--radius);
 }
 
-/* Animation for form entry */
+/* Form Entry Animation */
 .animate {
   animation: fadeUp 0.8s ease forwards;
+}
+
+/* Fade Up Keyframes */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Footer */
+.main-footer {
+  background: var(--gray-100);
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+  color: var(--gray-600);
+  margin-top: 4rem;
 }
