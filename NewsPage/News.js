@@ -79,7 +79,7 @@ function renderArticles() {
         <p><strong>Category:</strong> ${article.category}</p>
         <p><strong>Views:</strong> ${article.views}</p>
         <p>${truncateContent(article.content, 120)}</p>
-        <a href="#" class="read-more" onclick="viewDetails('${article.id}')">Read more →</a>
+        <a href="NewsRead/Read.html" class="read-more" onclick="NewsRead/Read.html('${article.id}')">Read more →</a>
       </div>
     `;
 
