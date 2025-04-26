@@ -6,6 +6,83 @@
   <title>Events Calendar</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s;
+    }
+    
+    .modal-content {
+      background-color: #f8f9fa;
+      margin: 15% auto;
+      padding: 25px;
+      width: 85%;
+      max-width: 500px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      position: relative;
+    }
+    
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close:hover {
+      color: black;
+    }
+    
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    
+    /* Login Form Styles */
+    #loginForm .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    #loginForm label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    #loginForm input {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    
+    #loginForm button {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--primary-blue);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    #loginForm button:hover {
+      background-color: var(--dark-blue);
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -13,103 +90,170 @@
   </header>
 
   <nav>
-    <input type="text" placeholder="Search events..." id="searchBar">
-    <select id="filterCategory">
-      <option value="all">All Categories</option>
-      <option value="academic">Academic</option>
-      <option value="social">Social</option>
-      <option value="sports">Sports</option>
-    </select>
-    <button id="filterBtn"><i class="fas fa-filter"></i> Filter</button>
-    <select id="sortBy">
-      <option value="date">Sort by Date</option>
-      <option value="title">Sort by Title</option>
-    </select>
+    <a href="#" id="adminLink" class="admin-link"><i class="fas fa-lock"></i> Admin</a>
   </nav>
 
   <main>
-    <section id="calendarView">
-      <div class="calendar-header">
-        <h2>April 2025</h2>
-        <div class="calendar-nav">
-          <button><i class="fas fa-chevron-left"></i></button>
-          <span>Today</span>
-          <button><i class="fas fa-chevron-right"></i></button>
-        </div>
-      </div>
-      <div class="weekdays">
-        <div>Sun</div>
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-      </div>
-      <div class="days">
-      
-      </div>
-    </section>
-
     <section id="eventsList">
       <h2 class="section-title"><i class="fas fa-list-ul"></i> Upcoming Events</h2>
-      
-      <article class="event">
-        <div class="event-header">
-          <span class="category-badge academic">Academic</span>
-          <h2>National Day Event</h2>
-        </div>
-        <div class="event-details">
-          <p><i class="fas fa-calendar-day"></i> Date: Dec 16, 2025</p>
-          <p><i class="fas fa-clock"></i> Time: 9:00 AM - 4:00 PM</p>
-          <p><i class="fas fa-map-marker-alt"></i> Location: Sheikh Abdul Aziz Hall</p>
-        </div>
-        
-        <input type="checkbox" id="toggleDetails1" class="toggle-checkbox">
-        <label for="toggleDetails1" class="details-button">
-          <i class="fas fa-info-circle"></i> View Details
-        </label>
-        
-        <div class="hidden-details">
-          <h3>Description</h3>
-          <p>The National Day event will be held in front of Sheikh Abdul Aziz Hall on campus.</p>
-          <h3>Additional Information</h3>
-          <p>Contact: Dr. Mohammed (20174904@uob.edu.bh)</p>
-        </div>
-      </article>
-      
-      <article class="event">
-        <div class="event-header">
-          <span class="category-badge academic">Sports</span>
-          <h2>Sports Day</h2>
-        </div>
-        <div class="event-details">
-          <p><i class="fas fa-calendar-day"></i> Date: Feb 20, 2026</p>
-          <p><i class="fas fa-clock"></i> Time: 10:00 AM - 4:00 PM</p>
-          <p><i class="fas fa-map-marker-alt"></i> Location: CS Department S40</p>
-        </div>
-        
-        <input type="checkbox" id="toggleDetails2" class="toggle-checkbox">
-        <label for="toggleDetails2" class="details-button">
-          <i class="fas fa-info-circle"></i> View Details
-        </label>
-        
-        <div class="hidden-details">
-          <h3>Description</h3>
-          <p>The Sports Day event will be held at the CS building in S40.</p>
-          <h3>Additional Information</h3>
-          <p>Contact: Dr. Mohammed (20174904@uob.edu.bh)</p>
-        </div>
-      </article>
+      <div id="eventsContainer">
+        <!-- Events will load here -->
+      </div>
     </section>
-
-    <button id="addEvent" onclick="location.href='adminCalendar.html'">
-      <i class="fas fa-plus"></i> Add New Event
-    </button>
   </main>
 
   <footer>
-    <p>&copy; University of Bahrain - Campus 2025  | <a href="#">About</a> | <a href="#">Contact</a></p>
+    <p>&copy; University of Bahrain - Campus 2025 | 
+      <a href="#" id="aboutLink">About</a> | 
+      <a href="#" id="contactLink">Contact</a>
+    </p>
   </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('loginModal').style.display='none'">&times;</span>
+      <h2><i class="fas fa-lock"></i> Admin Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit" class="btn-save">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- About Modal -->
+  <div id="aboutModal" class="modal">
+    <div class="modal-content">
+      <span class="close about-close">&times;</span>
+      <h2>About Us</h2>
+      <p>We are a team dedicated to providing innovative solutions and cutting-edge technologies.</p>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <span class="close contact-close">&times;</span>
+      <h2>Contact Information</h2>
+      <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@uob2025.com">info@uob2025.com</a></p>
+      <p><i class="fas fa-phone"></i> Phone: <a href="tel:+97343212343">+973 4321 2343</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if users exist, create default admin if not
+      if(!localStorage.getItem('calendarUsers')) {
+        localStorage.setItem('calendarUsers', JSON.stringify([
+          { username: "admin", password: "admin123" }
+        ]));
+      }
+
+      // Load events
+      const events = JSON.parse(localStorage.getItem('events')) || [];
+      const container = document.getElementById('eventsContainer');
+      
+      if (events.length === 0) {
+        container.innerHTML = '<p class="no-events">No upcoming events found.</p>';
+      } else {
+        container.innerHTML = events.map((event, index) => `
+          <article class="event">
+            <div class="event-header">
+              <span class="category-badge ${event.category}">${event.category.charAt(0).toUpperCase() + event.category.slice(1)}</span>
+              <h2>${event.title}</h2>
+            </div>
+            
+            ${event.image ? `
+              <div class="event-image">
+                <img src="${event.image}" alt="${event.title}" style="max-width:100%; max-height:200px;">
+              </div>
+            ` : ''}
+            
+            <div class="event-details">
+              <p><i class="fas fa-calendar-day"></i> Date: ${new Date(event.date).toLocaleDateString()}</p>
+              ${event.time ? `<p><i class="fas fa-clock"></i> Time: ${event.time}</p>` : ''}
+              <p><i class="fas fa-map-marker-alt"></i> Location: ${event.location}</p>
+            </div>
+            
+            <input type="checkbox" id="toggleDetails${index}" class="toggle-checkbox">
+            <label for="toggleDetails${index}" class="details-button">
+              <i class="fas fa-info-circle"></i> View Details
+            </label>
+            
+            <div class="hidden-details">
+              <h3>Description</h3>
+              <p>${event.description || 'No description available'}</p>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      // Login functionality
+      document.getElementById('adminLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('loginModal').style.display = 'block';
+      });
+
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        const users = JSON.parse(localStorage.getItem('calendarUsers')) || [];
+        const validUser = users.find(u => u.username === username && u.password === password);
+        
+        if(validUser) {
+          window.location.href = "adminCalendar.html";
+        } else {
+          alert("Invalid username or password");
+        }
+      });
+
+      // Modal functionality
+      const aboutModal = document.getElementById("aboutModal");
+      const contactModal = document.getElementById("contactModal");
+      const aboutLink = document.getElementById("aboutLink");
+      const contactLink = document.getElementById("contactLink");
+      const aboutClose = document.querySelector(".about-close");
+      const contactClose = document.querySelector(".contact-close");
+
+      aboutLink.onclick = function(e) {
+        e.preventDefault();
+        aboutModal.style.display = "block";
+      }
+
+      contactLink.onclick = function(e) {
+        e.preventDefault();
+        contactModal.style.display = "block";
+      }
+
+      aboutClose.onclick = function() {
+        aboutModal.style.display = "none";
+      }
+
+      contactClose.onclick = function() {
+        contactModal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == aboutModal) {
+          aboutModal.style.display = "none";
+        }
+        if (event.target == contactModal) {
+          contactModal.style.display = "none";
+        }
+        if (event.target == document.getElementById('loginModal')) {
+          document.getElementById('loginModal').style.display = "none";
+        }
+      }
+    });
+  </script>
 </body>
 </html>
