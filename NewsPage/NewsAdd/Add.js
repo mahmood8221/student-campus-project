@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       if (!response.ok) {
-        // If failed with image, try again without image
+        // Try again without image
         newsData.image = null;
         response = await fetch('https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news', {
           method: 'POST',
@@ -92,9 +92,12 @@ document.addEventListener('DOMContentLoaded', function () {
           body: JSON.stringify(newsData),
         });
 
-        if (!response.ok) throw new Error('Failed even after removing image.');
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || 'Failed even after removing image.');
+        }
 
-        // Show success with warning about image
+        // Success without image
         Swal.fire({
           icon: 'success',
           title: 'Article Published!',
@@ -108,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
       } else {
-        // Normal success
+        // Success with image
         Swal.fire({
           icon: 'success',
           title: 'Article Published!',
@@ -121,10 +124,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     } catch (error) {
       console.error(error);
+
+      let errorMessage = 'There was an error publishing your article. Please try again.';
+
+      if (error && error.message) {
+        errorMessage = error.message;
+      }
+
       Swal.fire({
         icon: 'error',
         title: 'Publish Failed',
-        text: 'There was an error publishing your article. Please try again.',
+        text: errorMessage,
       });
     } finally {
       publishButton.disabled = false;
