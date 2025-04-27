@@ -9,14 +9,13 @@
 </head>
 <body>
 
-<!-- Navbar (consistent with News.html) -->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
   <div class="container">
     <a class="navbar-brand" href="../../index.html">Campus Hub</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="#">Events Calendar</a></li>
@@ -43,88 +42,62 @@
 
     <!-- Article Header -->
     <header class="article-header">
-      <span class="badge bg-secondary mb-3">Events</span>
-      <h1 class="article-title">Spring Festival Highlights</h1>
+      <span id="category" class="badge bg-secondary mb-3">Category</span>
+      <h1 id="title" class="article-title">Loading Title...</h1>
       <div class="article-meta d-flex align-items-center mt-4">
-        <img src="../assets/author.jpg" alt="Author" class="author-img me-3">
+        <img id="authorImg" src="../assets/author.jpg" alt="Author" class="author-img me-3">
         <div>
-          <p class="author-name mb-0">A. AlBahraini</p>
-          <p class="article-date text-muted">Published on April 10, 2025</p>
+          <p id="author" class="author-name mb-0">Author Name</p>
+          <p id="publishDate" class="article-date text-muted">Published Date</p>
         </div>
       </div>
     </header>
 
     <!-- Featured Image -->
     <div class="featured-image my-5">
-      <img src="https://via.placeholder.com/1200x600" alt="Festival Crowd" class="img-fluid rounded-3">
-      <p class="image-caption text-muted mt-2">Students enjoying the spring festival activities</p>
+      <img id="featuredImage" src="https://via.placeholder.com/1200x600" alt="Featured" class="img-fluid rounded-3">
+      <p id="imageCaption" class="image-caption text-muted mt-2">Image caption goes here</p>
     </div>
 
     <!-- Article Content -->
-    <div class="article-content">
-      <p class="lead">The annual Spring Festival brought together over 2,000 students for a day filled with cultural celebrations, live music, and community building.</p>
-
-      <h2 class="section-title">Event Highlights</h2>
-      <p>The festival grounds were divided into three main areas:</p>
-      <ul class="highlight-list">
-        <li><strong>Cultural Pavilion:</strong> Featuring traditional foods and performances from 15 different countries</li>
-        <li><strong>Main Stage:</strong> Live bands and student performances throughout the day</li>
-        <li><strong>Activity Zone:</strong> Interactive games and team-building exercises</li>
-      </ul>
-
-      <h2 class="section-title">Community Impact</h2>
-      <p>This year's festival saw a 40% increase in attendance compared to last year. Student organizers emphasized the importance of...</p>
-      <p>Many participants commented on the inclusive atmosphere and opportunity to connect with peers from different faculties.</p>
-
-      <blockquote class="blockquote mt-5">
-        <p>"This event truly represents what campus life should be about - connection, celebration, and cultural exchange."</p>
-        <footer class="blockquote-footer mt-2">Event Coordinator, Sarah Johnson</footer>
-      </blockquote>
+    <div id="content" class="article-content">
+      <p class="lead">Loading content...</p>
     </div>
 
     <!-- Article Footer -->
     <footer class="article-footer mt-5 pt-4 border-top">
-      <div class="tags">
-        <span class="badge bg-primary">#CampusLife</span>
-        <span class="badge bg-primary">#SpringFestival</span>
-        <span class="badge bg-primary">#StudentEvents</span>
+      <div id="tags" class="tags">
+        <!-- Tags will be dynamically inserted here -->
       </div>
     </footer>
   </article>
 </main>
-<!-- Edit/Delete Buttons -->
-<div class="article-actions mt-4">
+
+<!-- Edit/Delete Buttons (optional for now) -->
+<div class="article-actions mt-4 d-none">
   <button class="btn btn-warning me-2">Edit Article</button>
   <button class="btn btn-danger">Delete Article</button>
 </div>
 
-<!-- Comments Section -->
+<!-- Comments Section (static for now) -->
 <section class="comments-section mt-5">
-  <h3>Comments (2)</h3>
+  <h3>Comments (0)</h3>
   <div class="comment-form mb-4">
-    <textarea class="form-control" placeholder="Add a comment..."></textarea>
-    <button class="btn btn-primary mt-2">Post Comment</button>
+    <textarea class="form-control" placeholder="Add a comment..." disabled></textarea>
+    <button class="btn btn-primary mt-2" disabled>Post Comment</button>
   </div>
   <div class="comment-list">
-    <!-- Comment example -->
-    <div class="comment card mb-3">
-      <div class="card-body">
-        <div class="d-flex align-items-center mb-2">
-          <img src="../assets/user.jpg" alt="User" class="comment-avatar me-2">
-          <span class="fw-bold">John Doe</span>
-        </div>
-        <p class="mb-0">Great article! Thanks for sharing.</p>
-        <small class="text-muted">Posted on April 12, 2025</small>
-      </div>
-    </div>
+    <!-- Future dynamic comments will be inserted here -->
   </div>
 </section>
-<!-- Footer (consistent with News.html) -->
-<footer class="main-footer text-center">
+
+<!-- Footer -->
+<footer class="main-footer text-center mt-5">
   <div class="container">
     <small>© 2025 Campus Hub. All rights reserved.</small>
   </div>
 </footer>
 
+<script src="Read.js"></script> <!-- ✅ We will create this file -->
 </body>
 </html>
