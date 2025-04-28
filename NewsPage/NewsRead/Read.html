@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Campus Hub | News Article</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="Read.css">
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="../../index.html">Campus Hub</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="#">Events Calendar</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Study Group Finder</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Course Reviews</a></li>
@@ -30,72 +30,74 @@
   </div>
 </nav>
 
-<!-- Main Article Content -->
-<main class="container main-content animate">
-  <article class="news-article">
-    <!-- Back Button -->
-    <div class="back-button mb-4">
-      <a href="../News.html" class="btn btn-outline-secondary">
-        ← Back to News
-      </a>
-    </div>
+<!-- Main Content -->
+<main class="container py-5 animate">
 
-    <!-- Article Header -->
-    <header class="article-header">
-      <span id="article-category" class="badge bg-secondary mb-3">Category</span>
-      <h1 id="article-title" class="article-title">Loading Title...</h1>
-      <div class="article-meta d-flex align-items-center mt-4">
-        <img id="author-img" src="../assets/author.jpg" alt="Author" class="author-img me-3">
+  <!-- Back to News Button -->
+  <div class="mb-4">
+    <a href="../News.html" class="btn btn-outline-secondary btn-sm">
+      ← Back to News
+    </a>
+  </div>
+
+  <!-- News Article -->
+  <article class="card shadow-sm p-4">
+    <header class="mb-4">
+      <span id="article-category" class="badge bg-secondary mb-2">Category</span>
+      <h1 id="article-title" class="h2 fw-bold">Loading Title...</h1>
+      <div class="d-flex align-items-center mt-3">
+        <img id="author-img" src="../assets/author.jpg" alt="Author" class="rounded-circle me-3" width="50" height="50">
         <div>
-          <p id="author-name" class="author-name mb-0">Author Name</p>
-          <p id="publish-date" class="article-date text-muted">Published Date</p>
+          <p id="author-name" class="mb-0 fw-semibold">Author Name</p>
+          <small id="publish-date" class="text-muted">Published Date</small>
         </div>
       </div>
     </header>
 
-    <!-- Featured Image -->
-    <div class="featured-image my-5">
-      <img id="featured-image" src="https://via.placeholder.com/1200x600" alt="Featured" class="img-fluid rounded-3">
-      <p id="image-caption" class="image-caption text-muted mt-2">Image caption goes here</p>
-    </div>
+    <figure class="my-4 text-center">
+      <img id="featured-image" src="https://via.placeholder.com/900x450" alt="Featured" class="img-fluid rounded">
+      <figcaption id="image-caption" class="text-muted mt-2 small">Image caption goes here</figcaption>
+    </figure>
 
-    <!-- Article Content -->
-    <div id="article-content" class="article-content">
+    <section id="article-content" class="article-content mb-4">
       <p class="lead">Loading content...</p>
-    </div>
+    </section>
 
-    <!-- Article Footer -->
-    <footer class="article-footer mt-5 pt-4 border-top">
-      <div id="article-tags" class="tags">
-        <!-- Tags will be dynamically inserted here -->
+    <!-- Tags -->
+    <footer class="border-top pt-3">
+      <div id="article-tags" class="d-flex flex-wrap gap-2">
+        <!-- Tags will be injected here -->
       </div>
     </footer>
   </article>
+
+  <!-- Edit / Delete Buttons -->
+  <div id="article-actions" class="d-flex justify-content-end gap-2 mt-3">
+    <button id="edit-article-btn" class="btn btn-warning btn-sm">Edit Article</button>
+    <button id="delete-article-btn" class="btn btn-danger btn-sm">Delete Article</button>
+  </div>
+
+  <!-- Comments Section -->
+  <section class="comments-section mt-5">
+    <h3 class="h5 mb-3">Comments (<span id="comment-count">0</span>)</h3>
+
+    <!-- Comment Form -->
+    <div class="mb-4">
+      <textarea id="comment-input" class="form-control mb-2" rows="3" placeholder="Write your comment..."></textarea>
+      <button id="post-comment-btn" class="btn btn-primary btn-sm">Post Comment</button>
+    </div>
+
+    <!-- Comments List -->
+    <div id="comment-list" class="comment-list">
+      <!-- Comments will appear here -->
+    </div>
+  </section>
+
 </main>
 
-<!-- Edit/Delete Buttons (future) -->
-<div id="article-actions" class="article-actions mt-4 d-none">
-  <button class="btn btn-warning me-2">Edit Article</button>
-  <button class="btn btn-danger">Delete Article</button>
-</div>
-
-<!-- Comments Section -->
-<section class="comments-section mt-5">
-  <h3>Comments (<span id="comment-count">0</span>)</h3>
-  <div class="comment-form mb-4">
-    <textarea id="comment-input" class="form-control" placeholder="Add a comment..." disabled></textarea>
-    <button id="post-comment-btn" class="btn btn-primary mt-2" disabled>Post Comment</button>
-  </div>
-  <div id="comment-list" class="comment-list">
-    <!-- Future dynamic comments will appear here -->
-  </div>
-</section>
-
 <!-- Footer -->
-<footer class="main-footer text-center mt-5">
-  <div class="container">
-    <small>© 2025 Campus Hub. All rights reserved.</small>
-  </div>
+<footer class="text-center py-4 small text-muted">
+  © 2025 Campus Hub. All rights reserved.
 </footer>
 
 <script src="Read.js"></script>
