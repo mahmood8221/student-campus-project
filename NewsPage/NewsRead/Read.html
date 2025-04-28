@@ -42,52 +42,52 @@
 
     <!-- Article Header -->
     <header class="article-header">
-      <span id="category" class="badge bg-secondary mb-3">Category</span>
-      <h1 id="title" class="article-title">Loading Title...</h1>
+      <span id="article-category" class="badge bg-secondary mb-3">Category</span>
+      <h1 id="article-title" class="article-title">Loading Title...</h1>
       <div class="article-meta d-flex align-items-center mt-4">
-        <img id="authorImg" src="../assets/author.jpg" alt="Author" class="author-img me-3">
+        <img id="author-img" src="../assets/author.jpg" alt="Author" class="author-img me-3">
         <div>
-          <p id="author" class="author-name mb-0">Author Name</p>
-          <p id="publishDate" class="article-date text-muted">Published Date</p>
+          <p id="author-name" class="author-name mb-0">Author Name</p>
+          <p id="publish-date" class="article-date text-muted">Published Date</p>
         </div>
       </div>
     </header>
 
     <!-- Featured Image -->
     <div class="featured-image my-5">
-      <img id="featuredImage" src="https://via.placeholder.com/1200x600" alt="Featured" class="img-fluid rounded-3">
-      <p id="imageCaption" class="image-caption text-muted mt-2">Image caption goes here</p>
+      <img id="featured-image" src="https://via.placeholder.com/1200x600" alt="Featured" class="img-fluid rounded-3">
+      <p id="image-caption" class="image-caption text-muted mt-2">Image caption goes here</p>
     </div>
 
     <!-- Article Content -->
-    <div id="content" class="article-content">
+    <div id="article-content" class="article-content">
       <p class="lead">Loading content...</p>
     </div>
 
     <!-- Article Footer -->
     <footer class="article-footer mt-5 pt-4 border-top">
-      <div id="tags" class="tags">
+      <div id="article-tags" class="tags">
         <!-- Tags will be dynamically inserted here -->
       </div>
     </footer>
   </article>
 </main>
 
-<!-- Edit/Delete Buttons (optional for now) -->
-<div class="article-actions mt-4 d-none">
+<!-- Edit/Delete Buttons (future) -->
+<div id="article-actions" class="article-actions mt-4 d-none">
   <button class="btn btn-warning me-2">Edit Article</button>
   <button class="btn btn-danger">Delete Article</button>
 </div>
 
-<!-- Comments Section (static for now) -->
+<!-- Comments Section -->
 <section class="comments-section mt-5">
-  <h3>Comments (0)</h3>
+  <h3>Comments (<span id="comment-count">0</span>)</h3>
   <div class="comment-form mb-4">
-    <textarea class="form-control" placeholder="Add a comment..." disabled></textarea>
-    <button class="btn btn-primary mt-2" disabled>Post Comment</button>
+    <textarea id="comment-input" class="form-control" placeholder="Add a comment..." disabled></textarea>
+    <button id="post-comment-btn" class="btn btn-primary mt-2" disabled>Post Comment</button>
   </div>
-  <div class="comment-list">
-    <!-- Future dynamic comments will be inserted here -->
+  <div id="comment-list" class="comment-list">
+    <!-- Future dynamic comments will appear here -->
   </div>
 </section>
 
@@ -98,6 +98,6 @@
   </div>
 </footer>
 
-<script src="Read.js"></script> <!-- ✅ We will create this file -->
+<script src="Read.js"></script>
 </body>
 </html>
