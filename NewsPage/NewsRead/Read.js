@@ -1,5 +1,3 @@
-// Read.js
-
 document.addEventListener('DOMContentLoaded', () => {
     loadArticle();
     setupActionButtons();
@@ -7,41 +5,55 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   /**
-   * Load the article details dynamically
+   * Load the article details dynamically from the API
    */
   function loadArticle() {
     const articleId = getArticleIdFromURL();
-    
-    // Simulate fetching article data (replace with actual API or database fetch)
-    const articleData = {
-      id: articleId,
-      title: "Sample News Article Title",
-      author: "John Doe",
-      date: "April 25, 2025",
-      image: "https://via.placeholder.com/800x400",
-      content: `
-        <p class="lead">This is a lead paragraph introducing the article.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel tincidunt...</p>
-        <h2 class="section-title">Subheading Example</h2>
-        <p>More detailed content continues here...</p>
-        <blockquote class="blockquote">
-          <p>This is a highlighted quote from the article.</p>
-          <footer class="blockquote-footer">John Doe</footer>
-        </blockquote>
-      `
-    };
+    const apiURL = `https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news/${articleId}`;
   
-    displayArticle(articleData);
+    fetch(apiURL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch article.');
+        }
+        return response.json();
+      })
+      .then(articleData => {
+        displayArticle(articleData);
+      })
+      .catch(error => {
+        console.error('Error loading article:', error);
+        document.querySelector('.main-content').innerHTML = `
+          <div class="alert alert-danger" role="alert">
+            Failed to load the article. Please try again later.
+          </div>
+        `;
+      });
   }
   
   /**
    * Display the article content
    */
   function displayArticle(data) {
-    document.querySelector('.article-title').textContent = data.title;
-    document.querySelector('.article-date').textContent = data.date;
-    document.querySelector('.featured-image img').src = data.image;
-    document.querySelector('.article-content').innerHTML = data.content;
+    document.getElementById('article-title').textContent = data.title;
+    document.getElementById('author-name').textContent = data.author;
+    document.getElementById('publish-date').textContent = new Date(data.createdAt).toLocaleDateString();
+    document.getElementById('author-img').src = data.authorImg || '../assets/author.jpg'; // fallback
+    document.getElementById('featured-image').src = data.image || 'https://via.placeholder.com/800x400';
+    document.getElementById('image-caption').textContent = data.caption || '';
+    document.getElementById('article-content').innerHTML = data.content;
+  
+    // If you have tags
+    if (data.tags && Array.isArray(data.tags)) {
+      const tagsContainer = document.getElementById('article-tags');
+      tagsContainer.innerHTML = '';
+      data.tags.forEach(tag => {
+        const span = document.createElement('span');
+        span.className = 'badge bg-primary me-1';
+        span.textContent = tag;
+        tagsContainer.appendChild(span);
+      });
+    }
   }
   
   /**
@@ -53,28 +65,28 @@ document.addEventListener('DOMContentLoaded', () => {
   
     editButton?.addEventListener('click', () => {
       alert('Edit article functionality not implemented yet.');
-      // Redirect to edit page if needed
     });
   
     deleteButton?.addEventListener('click', () => {
       if (confirm('Are you sure you want to delete this article?')) {
         alert('Delete functionality not implemented yet.');
-        // Call delete API or perform action
       }
     });
   }
   
   /**
-   * Load comments dynamically
+   * Load comments dynamically (static for now)
    */
   function loadComments() {
-    // Example comments (replace with dynamic fetch)
     const comments = [
       { user: "Alice", text: "Great article!" },
       { user: "Bob", text: "Thanks for the information." }
     ];
   
-    const commentList = document.querySelector('.comment-list');
+    const commentList = document.getElementById('comment-list');
+    const commentCount = document.getElementById('comment-count');
+    commentList.innerHTML = '';
+  
     comments.forEach(comment => {
       const div = document.createElement('div');
       div.className = 'comment p-3 mb-2';
@@ -87,6 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       commentList.appendChild(div);
     });
+  
+    commentCount.textContent = comments.length;
   }
   
   /**
