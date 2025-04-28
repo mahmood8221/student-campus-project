@@ -30,72 +30,53 @@
   </div>
 </nav>
 
-<!-- Main Content -->
-<main class="container py-5 animate">
-
-  <!-- Back to News Button -->
+<main class="container my-5">
   <div class="mb-4">
-    <a href="../News.html" class="btn btn-outline-secondary btn-sm">
-      ← Back to News
-    </a>
+    <a href="../News.html" class="btn btn-outline-secondary btn-sm">← Back to News</a>
   </div>
 
-  <!-- News Article -->
-  <article class="card shadow-sm p-4">
-    <header class="mb-4">
-      <span id="article-category" class="badge bg-secondary mb-2">Category</span>
-      <h1 id="article-title" class="h2 fw-bold">Loading Title...</h1>
-      <div class="d-flex align-items-center mt-3">
-        <img id="author-img" src="../assets/author.jpg" alt="Author" class="rounded-circle me-3" width="50" height="50">
-        <div>
-          <p id="author-name" class="mb-0 fw-semibold">Author Name</p>
-          <small id="publish-date" class="text-muted">Published Date</small>
-        </div>
+  <!-- Article Container -->
+  <article>
+    <div class="mb-3">
+      <span id="article-category" class="badge bg-secondary">Loading category...</span>
+    </div>
+    
+    <h1 id="article-title" class="mb-3">Loading Title...</h1>
+    
+    <div class="d-flex align-items-center mb-4">
+      <img id="author-img" src="../assets/placeholder.jpg" 
+           class="rounded-circle me-3" 
+           width="50" 
+           height="50"
+           alt="Author">
+      <div>
+        <p id="author-name" class="mb-0 fw-bold">Loading author...</p>
+        <small id="publish-date" class="text-muted">Loading date...</small>
       </div>
-    </header>
+    </div>
 
-    <figure class="my-4 text-center">
-      <img id="featured-image" src="https://via.placeholder.com/900x450" alt="Featured" class="img-fluid rounded">
-      <figcaption id="image-caption" class="text-muted mt-2 small">Image caption goes here</figcaption>
-    </figure>
+    <img id="featured-image" 
+         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" 
+         class="img-fluid mb-3"
+         alt="Loading image...">
 
-    <section id="article-content" class="article-content mb-4">
-      <p class="lead">Loading content...</p>
-    </section>
-
-    <!-- Tags -->
-    <footer class="border-top pt-3">
-      <div id="article-tags" class="d-flex flex-wrap gap-2">
-        <!-- Tags will be injected here -->
-      </div>
-    </footer>
+    <div id="article-content" class="mb-5">
+      <p class="placeholder-glow">
+        <span class="placeholder col-12"></span>
+        <span class="placeholder col-10"></span>
+        <span class="placeholder col-8"></span>
+      </p>
+    </div>
   </article>
 
-  <!-- Edit / Delete Buttons -->
-  <div id="article-actions" class="d-flex justify-content-end gap-2 mt-3">
-    <button id="edit-article-btn" class="btn btn-warning btn-sm">Edit Article</button>
-    <button id="delete-article-btn" class="btn btn-danger btn-sm">Delete Article</button>
-  </div>
-
-  <!-- Comments Section -->
-  <section class="comments-section mt-5">
-    <h3 class="h5 mb-3">Comments (<span id="comment-count">0</span>)</h3>
-
-    <!-- Comment Form -->
-    <div class="mb-4">
-      <textarea id="comment-input" class="form-control mb-2" rows="3" placeholder="Write your comment..."></textarea>
-      <button id="post-comment-btn" class="btn btn-primary btn-sm">Post Comment</button>
-    </div>
-
-    <!-- Comments List -->
-    <div id="comment-list" class="comment-list">
-      <!-- Comments will appear here -->
-    </div>
+  <!-- Comments -->
+  <section class="comments">
+    <h5 class="mb-3">Comments (<span id="comment-count">0</span>)</h5>
+    <div id="comment-list"></div>
   </section>
 
 </main>
 
-<!-- Footer -->
 <footer class="text-center py-4 small text-muted">
   © 2025 Campus Hub. All rights reserved.
 </footer>
