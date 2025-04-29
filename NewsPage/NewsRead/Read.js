@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function loadArticle() {
     const articleId = getArticleIdFromURL();
     const apiURL = `https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news/${articleId}`;
-  
     fetch(apiURL)
       .then(response => {
         if (!response.ok) {
