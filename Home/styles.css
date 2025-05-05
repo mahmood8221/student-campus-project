@@ -1,0 +1,156 @@
+/* ======= Carousel Styles ======= */
+.carousel-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 4rem;
+  perspective: 1000px;
+}
+
+.carousel-track {
+  position: relative;
+  height: 500px;
+  overflow: visible;
+}
+
+.carousel-card {
+  position: absolute;
+  width: 70%;
+  left: 15%;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: var(--transition);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.carousel-card.active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  z-index: 3;
+  pointer-events: all;
+}
+
+.carousel-card.prev {
+  opacity: 0.7;
+  transform: translateX(-40%) scale(0.9);
+  z-index: 2;
+  filter: blur(1px);
+}
+
+.carousel-card.next {
+  opacity: 0.7;
+  transform: translateX(40%) scale(0.9);
+  z-index: 2;
+  filter: blur(1px);
+}
+
+.carousel-control {
+  background: var(--white);
+  border: none;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  box-shadow: var(--shadow-lg);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 4;
+}
+
+.carousel-control:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+  left: -1.5rem;
+}
+
+.next-btn {
+  right: -1.5rem;
+}
+
+.carousel-progress {
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: var(--gray-200);
+  border-radius: 2px;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width 2s linear;
+}
+
+/* Card Styling Enhancements */
+.carousel-card .card {
+  border: none;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.carousel-card .card-body {
+  padding: 2.5rem;
+}
+
+.carousel-card .card-icon {
+  transition: var(--transition);
+}
+
+.carousel-card.active .card-icon {
+  animation: iconFloat 1.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .carousel-container {
+    padding: 0 2rem;
+  }
+  
+  .carousel-card {
+    width: 85%;
+    left: 7.5%;
+  }
+  
+  .carousel-control {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .prev-btn {
+    left: -0.5rem;
+  }
+  
+  .next-btn {
+    right: -0.5rem;
+  }
+  
+  .carousel-card.prev {
+    transform: translateX(-30%) scale(0.85);
+  }
+  
+  .carousel-card.next {
+    transform: translateX(30%) scale(0.85);
+  }
+}
