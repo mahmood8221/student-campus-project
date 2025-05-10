@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Reviews</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+         /*styles*/
+         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .module-menu {
+            background-color: #343a40;
+        }
+
+        .module-menu .nav-link {
+            color: rgba(255,255,255,.75);
+            padding: 0.75rem 1rem;
+            border-radius: 0.25rem;
+            margin: 0.1rem;
+        }
+
+        .module-menu .nav-link:hover, .module-menu .nav-link.active {
+            color: white;
+            background-color: #495057;
+        }
+
+        .module-menu .nav-link i {
+            margin-right: 0.5rem;
+        }
+
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            color: #2c3e50;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+        }
+
+        .bi-star-fill {
+            margin-right: 2px;
+        }
+
+        .text-warning {
+            color: #ffc107 !important;
+        }
+
+        #review-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        #review-detail .card {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }     
+
+        @media (max-width: 768px) {
+            .d-flex.justify-content-between.mb-4 {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .d-flex.justify-content-between.mb-4 button {
+                width: 100%;
+            }
+            
+            .row.mb-4 > div {
+                margin-bottom: 1rem;
+            }
+            
+            .d-flex.justify-content-end {
+                justify-content: start !important;
+            }
+            
+            .module-menu .nav-link {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .module-menu .nav-link i {
+                margin-right: 0.3rem;
+            }
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .btn-outline-primary {
+            color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+
+        footer {
+            background-color: #0d6efd;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-primary text-white py-3">
+        <div class="container">
+            <h1 class="mb-0">Campus Hub</h1>
+        </div>
+    </header>
+
+    <!-- Module Navigation Menu -->
+    <nav class="navbar navbar-expand-lg navbar-dark module-menu py-2">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#moduleNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="moduleNav">
+                <ul class="navbar-nav w-100 d-flex flex-wrap">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-calendar-event"></i> Events Calendar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-people"></i> Study Groups
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="bi bi-star"></i> Course Reviews
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-journal-text"></i> Course Notes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-newspaper"></i> Campus News
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-emoji-sunglasses"></i> Club Activities
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-cart"></i> Marketplace
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="filterReviews('all')">All Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="filterReviews('top-rated')">Top Rated</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="filterReviews('latest')">Latest</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+
+        <!-- Main Listing Page -->
+        <section id="reviews-listing" class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Course Reviews</h2>
+                <button class="btn btn-primary" onclick="showForm()">Add New Review</button>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6 mb-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search reviews..." onkeyup="handleSearch()">
+                        <button class="btn btn-outline-secondary" type="button" onclick="handleSearchButton()">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <div class="d-flex justify-content-end">
+                        <div class="dropdown me-2">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
+                                Filter by: All Courses
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" data-value="all">All Courses</a></li>
+                                <li><a class="dropdown-item" href="#" data-value="Computer Science">Computer Science</a></li>
+                                <li><a class="dropdown-item" href="#" data-value="Mathematics">Mathematics</a></li>
+                                <li><a class="dropdown-item" href="#" data-value="Engineering">Engineering</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown">
+                                Sort by Date
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="setSort('newest')">Newest First</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="setSort('oldest')">Oldest First</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="setSort('highest')">Highest Rated</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="setSort('lowest')">Lowest Rated</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="reviewsContainer">
+                <!-- Reviews will be dynamically inserted here -->
+            </div>
+
+            <!-- Pagination -->
+            <nav class="mt-4" aria-label="Reviews pagination">
+                <ul class="pagination justify-content-center" id="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <!-- Loading Indicator -->
+        <section id="review-form" class="mb-5 d-none">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Add New Review</h2>
+        <button class="btn btn-outline-secondary" onclick="hideForm()">Cancel</button>
+    </div>
+
+    <form>
+        <div class="mb-3">
+            <label for="reviewerName" class="form-label">Your Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="reviewerName" required placeholder="Enter your name">
+        </div>
+
+        <div class="mb-3">
+            <label for="courseName" class="form-label">Course Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="courseName" required placeholder="e.g., Introduction to Programming">
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="courseCode" class="form-label">Course Code <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="courseCode" required placeholder="e.g., CS101">
+            </div>
+            <div class="col-md-6">
+                <label for="professor" class="form-label">Professor <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="professor" required placeholder="Professor's name">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="rating" class="form-label">Rating <span class="text-danger">*</span></label>
+            <select class="form-select" id="rating" required>
+                <option value="" selected disabled>Select a rating</option>
+                <option value="5">5 Stars - Excellent</option>
+                <option value="4">4 Stars - Very Good</option>
+                <option value="3">3 Stars - Good</option>
+                <option value="2">2 Stars - Fair</option>
+                <option value="1">1 Star - Poor</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="reviewText" class="form-label">Your Review <span class="text-danger">*</span></label>
+            <textarea class="form-control" id="reviewText" rows="5" required placeholder="Share your experience with this course..."></textarea>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="anonymous">
+            <label class="form-check-label" for="anonymous">Post anonymously</label>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="reset" class="btn btn-outline-secondary me-md-2">Reset</button>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+        </div>
+    </form>
+</section>
+
+        <!-- Item Detail View -->
+        <section id="review-detail" class="mb-5 d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Review Details</h2>
+                <a href="#" class="btn btn-outline-secondary" onclick="hideDetail()">Back to Listing</a>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div>
+                            <h3 class="card-title">Data Structures</h3>
+                            <h5 class="card-subtitle text-muted">CS201 - Professor Johnson</h5>
+                        </div>
+                        <div class="text-warning h4">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <p class="card-text">Excellent course! Professor Johnson explains complex concepts clearly. The projects really helped solidify my understanding of data structures. The assignments were challenging but fair, and the professor was always available during office hours to provide help.</p>
+                        <p class="card-text">The course covers arrays, linked lists, stacks, queues, trees, and graphs. The final project where we implemented a graph algorithm was particularly rewarding. I would highly recommend this course to anyone serious about computer science.</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <span class="badge bg-info text-dark me-2">Computer Science</span>
+                            <span class="badge bg-info text-dark">Core Requirement</span>
+                        </div>
+                        <small class="text-muted">Posted by: Abdulla Ali • 1 week ago</small>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-sm btn-outline-primary">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments -->
+            <div class="mt-4">
+                <h4>Comments</h4>
+                
+                <div class="mb-3">
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Add a comment...">
+                            <button class="btn btn-primary" type="button">Post</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="list-group">
+                    <!-- Comment 1 -->
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Sara Ahmed</h6>
+                            <small class="text-muted">3 days ago</small>
+                        </div>
+                        <p class="mb-1">I completely agree! This was one of the best courses I've taken so far.</p>
+                    </div>
+                    
+                    <!-- Comment 2 -->
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">cs_major</h6>
+                            <small class="text-muted">5 days ago</small>
+                        </div>
+                        <p class="mb-1">How was the workload compared to CS101?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+        <footer class="py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">© 2025 Campus Hub Course Reviews. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+
+        //APP STATE & CONFIG
+        const state = {
+            reviews: [],
+            filteredReviews: [],
+            currentPage: 1,
+            reviewsPerPage: 6,
+            sortBy: 'newest',
+            filterBy: 'all',
+            searchQuery: ''
+        };
+
+        const config = {
+            apiUrl: 'https://65f199d0034bdbecc763230a.mockapi.io/course-reviews',
+            fallbackData: [
+                {
+                    id: 1,
+                    courseName: "Introduction to Programming",
+                    courseCode: "CS101",
+                    professor: "Professor Smith",
+                    rating: 4,
+                    reviewText: "Great introduction to programming concepts. The assignments were challenging but fair. Would recommend to anyone new to coding.",
+                    author: "Ali Ahmed",
+                    date: "2025-04-24",
+                    anonymous: false,
+                    department: "Computer Science"
+                },
+                {
+                    id: 2,
+                    courseName: "Data Structures",
+                    courseCode: "CS201",
+                    professor: "Professor Johnson",
+                    rating: 5,
+                    reviewText: "Excellent course! Professor Johnson explains complex concepts clearly. The projects really helped solidify my understanding of data structures.",
+                    author: "Abdulla Ali",
+                    date: "2025-04-18",
+                    anonymous: false,
+                    department: "Computer Science"
+                },
+                {
+                    id: 3,
+                    courseName: "Calculus II",
+                    courseCode: "MATH202",
+                    professor: "Professor Lee",
+                    rating: 3,
+                    reviewText: "Challenging material but the professor's lectures were well-organized. The textbook was difficult to follow though.",
+                    author: "Mariam Salman",
+                    date: "2025-04-05",
+                    anonymous: false,
+                    department: "Mathematics"
+                },
+                {
+                    id: 4,
+                    courseName: "Digital Design",
+                    courseCode: "EE210",
+                    professor: "Professor Wilson",
+                    rating: 4,
+                    reviewText: "Fantastic hands-on projects. The lab sessions were particularly valuable for understanding the concepts.",
+                    author: "Omar Khalid",
+                    date: "2025-04-15",
+                    anonymous: true,
+                    department: "Engineering"
+                }
+            ]
+        };
+
+        //CORE FUNCTIONS
+        async function initializeApp() {
+            await fetchReviews();
+            setupEventListeners();
+            document.querySelector('#navbarNav .nav-link').classList.add('active');
+            renderAll();
+        }
+
+        function filterReviews(filterType) {
+            document.querySelectorAll('#navbarNav .nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.textContent.trim().toLowerCase() === filterType.replace('-', ' ') || 
+                    (filterType === 'all' && link.textContent.trim() === 'All Reviews')) {
+                    link.classList.add('active');
+                }
+            });
+
+            //filter
+            switch(filterType) {
+                case 'top-rated':
+                    state.sortBy = 'highest';
+                    break;
+                case 'latest':
+                    state.sortBy = 'newest';
+                    break;
+                default:
+                    state.sortBy = 'newest'; 
+            }
+
+            applyFilters();
+        }
+
+        async function fetchReviews() {
+            showLoading(true);
+            try {
+                const response = await fetch(config.apiUrl);
+                if (!response.ok) throw new Error("Network error");
+                state.reviews = await response.json();
+            } catch (error) {
+                console.error("API Error:", error);
+                state.reviews = config.fallbackData;
+            } finally {
+                state.filteredReviews = [...state.reviews];
+                showLoading(false);
+                applyFilters();
+            }
+        }
+
+        function applyFilters() {
+            // Get search query
+            state.searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+            
+            // Filter by search query
+            let results = state.reviews.filter(review => 
+                review.courseName.toLowerCase().includes(state.searchQuery) ||
+                review.courseCode.toLowerCase().includes(state.searchQuery) ||
+                review.professor.toLowerCase().includes(state.searchQuery) ||
+                review.reviewText.toLowerCase().includes(state.searchQuery) ||
+                review.author.toLowerCase().includes(state.searchQuery)
+            );
+
+            //department filter
+            if (state.filterBy !== 'all') {
+                results = results.filter(review => review.department === state.filterBy);
+            }
+
+            //sorting
+            switch (state.sortBy) {
+                case 'newest':
+                    results.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'oldest':
+                    results.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    break;
+                case 'highest':
+                    results.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'lowest':
+                    results.sort((a, b) => a.rating - b.rating);
+                    break;
+            }
+
+            state.filteredReviews = results;
+            state.currentPage = 1;
+            renderAll();
+        }
+
+        // Search functions
+        function handleSearch() {
+            applyFilters();
+        }
+
+        function handleSearchButton() {
+            applyFilters();
+        }
+
+        function setSort(sortType) {
+            state.sortBy = sortType;
+            document.getElementById('sortDropdown').textContent = `Sort by: ${sortType.charAt(0).toUpperCase() + sortType.slice(1)}`;
+            applyFilters();
+        }
+
+        //RENDER FUNCTIONS
+        function renderAll() {
+            renderReviewList();
+            renderPagination();
+        }
+
+        function renderReviewList() {
+            const container = document.getElementById('reviewsContainer');
+            if (!container) return;
+
+            const startIdx = (state.currentPage - 1) * state.reviewsPerPage;
+            const paginatedReviews = state.filteredReviews.slice(startIdx, startIdx + state.reviewsPerPage);
+
+            container.innerHTML = paginatedReviews.map(review => `
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <h5 class="card-title mb-0">${review.courseName}</h5>
+                                <div class="text-warning">
+                                    ${'<i class="bi bi-star-fill"></i>'.repeat(review.rating)}
+                                    ${'<i class="bi bi-star"></i>'.repeat(5 - review.rating)}
+                                </div>
+                            </div>
+                            <h6 class="card-subtitle mb-2 text-muted">${review.courseCode} - ${review.professor}</h6>
+                            <p class="card-text">${review.reviewText.substring(0, 120)}${review.reviewText.length > 120 ? '...' : ''}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Posted by: ${review.anonymous ? 'Anonymous' : review.author}</small>
+                                <small class="text-muted">${formatDate(review.date)}</small>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <button class="btn btn-sm btn-outline-primary" onclick="showReviewDetail(${review.id})">Read More</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            if (paginatedReviews.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-exclamation-circle fs-1 text-muted"></i>
+                        <h4 class="mt-3">No reviews found</h4>
+                        <p>Try adjusting your search or filters</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(state.filteredReviews.length / state.reviewsPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = `
+                <li class="page-item ${state.currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${state.currentPage - 1})">Previous</a>
+                </li>
+            `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `
+                    <li class="page-item ${i === state.currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="changePage(${i})">${i}</a>
+                    </li>
+                `;
+            }
+
+            html += `
+                <li class="page-item ${state.currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" onclick="changePage(${state.currentPage + 1})">Next</a>
+                </li>
+            `;
+
+            pagination.innerHTML = html;
+        }
+
+        function renderReviewDetail(reviewId) {
+            const review = state.reviews.find(r => r.id == reviewId);
+            if (!review) return;
+
+            const detailSection = document.getElementById('review-detail');
+            detailSection.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Review Details</h2>
+                    <button class="btn btn-outline-secondary" onclick="hideDetail()">Back to Listing</button>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <h3 class="card-title">${review.courseName}</h3>
+                                <h5 class="card-subtitle text-muted">${review.courseCode} - ${review.professor}</h5>
+                            </div>
+                            <div class="text-warning h4">
+                                ${'<i class="bi bi-star-fill"></i>'.repeat(review.rating)}
+                                ${'<i class="bi bi-star"></i>'.repeat(5 - review.rating)}
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <p class="card-text">${review.reviewText}</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <span class="badge bg-info text-dark me-2">${review.department}</span>
+                            </div>
+                            <small class="text-muted">Posted by: ${review.anonymous ? 'Anonymous' : review.author} • ${formatDate(review.date)}</small>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2">
+                            <button class="btn btn-sm btn-outline-primary" onclick="editReview(${review.id})">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteReview(${review.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            detailSection.classList.remove('d-none');
+            document.getElementById('reviews-listing').classList.add('d-none');
+        }
+
+        //UI INTERACTIONS
+        function showForm() {
+            document.getElementById('reviews-listing').classList.add('d-none');
+            document.getElementById('review-form').classList.remove('d-none');
+            document.getElementById('review-detail').classList.add('d-none');
+            document.getElementById('review-form').reset();
+        }
+
+        function hideForm() {
+            const form = document.querySelector('#review-form form');
+            form.removeAttribute('data-edit-id');
+            document.getElementById('reviews-listing').classList.remove('d-none');
+            document.getElementById('review-form').classList.add('d-none');
+        }
+
+        function showReviewDetail(reviewId) {
+            renderReviewDetail(reviewId);
+        }
+
+        function hideDetail() {
+            document.getElementById('reviews-listing').classList.remove('d-none');
+            document.getElementById('review-detail').classList.add('d-none');
+        }
+
+        function changePage(page) {
+            state.currentPage = page;
+            renderReviewList();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        //FORM HANDLING
+        function setupForm() {
+            const form = document.querySelector('#review-form form');
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                if (!validateForm()) return;
+                
+                const formData = {
+                    courseName: document.getElementById('courseName').value,
+                    courseCode: document.getElementById('courseCode').value,
+                    professor: document.getElementById('professor').value,
+                    rating: parseInt(document.getElementById('rating').value),
+                    reviewText: document.getElementById('reviewText').value,
+                    author: document.getElementById('reviewerName').value.trim() || 'Anonymous',
+                    date: new Date().toISOString().split('T')[0],
+                    anonymous: document.getElementById('anonymous').checked,
+                    department: "Computer Science" // Default, could be another field
+                };
+
+                if (form.dataset.editId) {
+                    await updateReview(form.dataset.editId, formData);
+                } else {
+                    await submitReview(formData);
+                }
+            });
+        }
+
+        function validateForm() {
+            const requiredFields = ['courseName', 'courseCode', 'professor', 'rating', 'reviewText'];
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                if (!element.value.trim()) {
+                    element.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    element.classList.remove('is-invalid');
+                }
+            });
+
+            return isValid;
+        }
+
+        async function submitReview(reviewData) {
+            showLoading(true);
+            try {
+                const newReview = {
+                    ...reviewData,
+                    id: state.reviews.length > 0 ? Math.max(...state.reviews.map(r => r.id)) + 1 : 1
+                };
+                
+                state.reviews.unshift(newReview);
+                state.filteredReviews.unshift(newReview);
+                
+                hideForm();
+                renderAll();
+                showToast('Review submitted successfully!');
+            } catch (error) {
+                console.error("Submission error:", error);
+                showToast('Failed to submit review', 'danger');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        //UTILITY FUNCTIONS
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function showLoading(show) {
+            const loader = document.getElementById('loading-indicator');
+            if (show) {
+                if (!loader) {
+                    const loadingDiv = document.createElement('div');
+                    loadingDiv.id = 'loading-indicator';
+                    loadingDiv.className = 'text-center py-5';
+                    loadingDiv.innerHTML = `
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading reviews...</p>
+                    `;
+                    document.querySelector('main').prepend(loadingDiv);
+                }
+            } else if (loader) {
+                loader.remove();
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toast-container');
+            if (!toastContainer) {
+                const container = document.createElement('div');
+                container.id = 'toast-container';
+                container.style.position = 'fixed';
+                container.style.top = '20px';
+                container.style.right = '20px';
+                container.style.zIndex = '1100';
+                document.body.appendChild(container);
+            }
+
+            const toast = document.createElement('div');
+            toast.className = `toast show align-items-center text-white bg-${type} border-0`;
+            toast.role = 'alert';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            document.getElementById('toast-container').appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        //EVENT LISTENERS
+        function setupEventListeners() {
+            document.querySelectorAll('#filterDropdown + .dropdown-menu a').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    state.filterBy = e.target.dataset.value;
+                    document.getElementById('filterDropdown').textContent = `Filter by: ${e.target.textContent}`;
+                    applyFilters();
+                });
+            });
+
+            // Filter dropdown
+            document.querySelectorAll('.dropdown-menu a').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const filterType = e.target.closest('.dropdown-menu').previousElementSibling.id;
+                    
+                    if (filterType === 'filterDropdown') {
+                        state.filterBy = e.target.textContent === 'All Courses' ? 'all' : e.target.textContent;
+                        document.getElementById('filterDropdown').textContent = `Filter by: ${e.target.textContent}`;
+                    } else if (filterType === 'sortDropdown') {
+                        const sortText = e.target.textContent.toLowerCase();
+                        if (sortText.includes('newest')) state.sortBy = 'newest';
+                        else if (sortText.includes('oldest')) state.sortBy = 'oldest';
+                        else if (sortText.includes('highest')) state.sortBy = 'highest';
+                        else if (sortText.includes('lowest')) state.sortBy = 'lowest';
+                        document.getElementById('sortDropdown').textContent = `Sort by: ${e.target.textContent}`;
+                    }
+                    
+                    applyFilters();
+                });
+            });
+
+            setupForm();
+        }
+
+        //EDIT & DELETE FUNCTIONS
+        function editReview(reviewId) {
+            const review = state.reviews.find(r => r.id == reviewId);
+            if (!review) return;
+
+            // Populate form with review data
+            document.getElementById('reviewerName').value = review.author === 'Anonymous' ? '' : review.author;
+            document.getElementById('courseName').value = review.courseName;
+            document.getElementById('courseCode').value = review.courseCode;
+            document.getElementById('professor').value = review.professor;
+            document.getElementById('rating').value = review.rating;
+            document.getElementById('reviewText').value = review.reviewText;
+            document.getElementById('anonymous').checked = review.anonymous;
+
+            // Change form to edit mode
+            const form = document.querySelector('#review-form form');
+            form.dataset.editId = reviewId;
+            form.querySelector('button[type="submit"]').textContent = 'Update Review';
+
+            showForm();
+        }
+
+        async function deleteReview(reviewId) {
+            if (!confirm('Are you sure you want to delete this review?')) return;
+            
+            showLoading(true);
+            try {
+                state.reviews = state.reviews.filter(r => r.id != reviewId);
+                state.filteredReviews = state.filteredReviews.filter(r => r.id != reviewId);
+                
+                hideDetail();
+                renderAll();
+                showToast('Review deleted successfully!');
+            } catch (error) {
+                console.error("Delete error:", error);
+                showToast('Failed to delete review', 'danger');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function updateReview(reviewId, updatedData) {
+            showLoading(true);
+            try {
+                const index = state.reviews.findIndex(r => r.id == reviewId);
+                if (index !== -1) {
+                    state.reviews[index] = { ...state.reviews[index], ...updatedData };
+                    state.filteredReviews = [...state.reviews];
+                }
+                
+                hideForm();
+                renderAll();
+                showToast('Review updated successfully!');
+            } catch (error) {
+                console.error("Update error:", error);
+                showToast('Failed to update review', 'danger');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Initialize
+        initializeApp();
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
