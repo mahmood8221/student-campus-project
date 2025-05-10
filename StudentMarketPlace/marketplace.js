@@ -13,7 +13,10 @@ fetch(apiURL)
   .then(data => {
     itemsData = data;
     populateCategoryFilter(data);
-    displayItems(data);})
+    displayItems(data);
+    
+    })
+    
     //Error handling
   .catch(error => {
     console.error("Error fetching data:", error);
@@ -59,7 +62,7 @@ function displayItems(items) {
             <p class="card-text"><strong>Price:</strong> ${item.price} BHD</p>
             <p class="card-text"><strong>Email:</strong> ${item.email}</p>
             <p class="card-text"><strong>Phone:</strong> ${item.phone}</p>
-            <button class="btn btn-primary mt-auto">Contact Seller</button>
+            <button class="btn btn-primary contact-seller-btn" data-seller-email="${item.email}">Contact Seller</button>
           </div>
         </div>
       </div>
@@ -68,6 +71,7 @@ function displayItems(items) {
   });
 
   createPagination(items);
+  attachContactButtonHandlers();
 }
 
 function createPagination(items) {
@@ -157,6 +161,7 @@ function filterItems() {
   }
     currentPage = 1;
   displayItems(filteredItems); // Display the filtered items
+  attachContactButtonHandlers();
 }
 
 // Get the form and the submit button
@@ -259,3 +264,31 @@ if (!category || category === "" || category === "Choose a category") {
   }
 });
 
+// Function to open the contact seller modal and populate it with seller data
+function openContactSellerModal(sellerEmail) {
+    document.getElementById('sellerEmail').value = sellerEmail; // Populate seller's email
+    const contactModal = new bootstrap.Modal(document.getElementById('contactSellerModal'));
+    contactModal.show();
+}
+
+// Example of how the contact seller button can trigger this
+function attachContactButtonHandlers() {
+  document.querySelectorAll('.contact-seller-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const sellerEmail = button.getAttribute('data-seller-email');
+      openContactSellerModal(sellerEmail);
+    });
+  });
+}
+
+
+// Handle the contact seller form submission
+document.getElementById('contactSellerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const message = document.getElementById('message').value;
+    const sellerEmail = document.getElementById('sellerEmail').value;
+
+    // Here, you can handle sending the message to the seller (e.g., via an API)
+    console.log('Message sent to', sellerEmail, 'Message:', message);
+    alert('Message sent to the seller!');
+});
