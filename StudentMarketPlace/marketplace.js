@@ -2,12 +2,15 @@
 
 const apiURL = "https://681cf49af74de1d219ae5ed8.mockapi.io/StudentMarketPlace";
 
-// Fetch and display items
+let itemsData=[];
+
+// Fetch and display
 fetch(apiURL)
   .then(response => response.json())
+
   .then(data => {
-    const container = document.querySelector('#marketplace-listings');
-    container.innerHTML = '';
+    itemsData = data;
+    displayItems(data);
 
     data.forEach(item => {
       const card = `
@@ -28,6 +31,7 @@ fetch(apiURL)
       container.innerHTML += card;
     });
   })
+  //Error handling
   .catch(error => {
     console.error("Error fetching data:", error);
   });
