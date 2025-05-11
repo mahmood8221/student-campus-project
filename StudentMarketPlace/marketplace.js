@@ -7,20 +7,21 @@ let currentPage = 1;
 const itemsPerPage = 6;
     
 // Fetch and display
+showLoading();
 fetch(apiURL)
   .then(response => response.json())
-
   .then(data => {
     itemsData = data;
-    populateCategoryFilter(data);
-    displayItems(data);
-    
-    })
-    
-    //Error handling
+    displayItems(itemsData);
+    createPagination(itemsData);
+  })
   .catch(error => {
-    console.error("Error fetching data:", error);
+    console.error('Error loading items:', error);
+  })
+  .finally(() => {
+    hideLoading();
   });
+  
   //dynamic category filter from api
 function populateCategoryFilter(items) {
   const filterSelect = document.querySelector('select.form-select');
