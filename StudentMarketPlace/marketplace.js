@@ -55,7 +55,7 @@ function displayItems(items) {
     const card = `
       <div class="col-md-4 mb-4">
         <div class="card h-100">
-          <img src="${item.image}" class="card-img-top" style="height: 200px; object-fit: cover;">
+          <img src="${item.image}" class="card-img-top" style="height: 200px; object-fit: cover;" data-item-id="${item.id}">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">${item.title}</h5>
             <p class="card-text flex-grow-1">${item.description}</p>
@@ -63,6 +63,7 @@ function displayItems(items) {
             <p class="card-text"><strong>Email:</strong> ${item.email}</p>
             <p class="card-text"><strong>Phone:</strong> ${item.phone}</p>
             <button class="btn btn-primary contact-seller-btn" data-seller-email="${item.email}">Contact Seller</button>
+            <button class="btn btn-info view-details-btn" data-item-id="${item.id}">View Details</button>
           </div>
         </div>
       </div>
@@ -72,6 +73,7 @@ function displayItems(items) {
 
   createPagination(items);
   attachContactButtonHandlers();
+  attachViewDetailHandlers();
 }
 
 function createPagination(items) {
@@ -141,6 +143,7 @@ filterSelect.addEventListener('change', () => {
 });
 
 function filterItems() {
+  showLoading();
     const sortValue = sortSelect.value;
     const searchValue = searchInput.value.toLowerCase();
     const filterValue = filterSelect.value;
@@ -162,6 +165,8 @@ function filterItems() {
     currentPage = 1;
   displayItems(filteredItems); // Display the filtered items
   attachContactButtonHandlers();
+   hideLoading();
+
 }
 
 // Get the form and the submit button
@@ -194,6 +199,7 @@ addItemForm.addEventListener('submit', function(event) {
     alert('Description is required');
     valid = false;
   }
+  
 
   
   // Validate category (required and not the default value)
@@ -236,7 +242,8 @@ if (!category || category === "" || category === "Choose a category") {
       createdAt: new Date().toISOString(),
     };
 
-    // Add new item to the marketplace (both in itemsData array and the API)
+    // Add new item to the marketplace
+    showLoading();
     fetch(apiURL, {
       method: 'POST',
       headers: {
@@ -246,7 +253,8 @@ if (!category || category === "" || category === "Choose a category") {
     })
     .then(response => response.json())
     .then(data => {
-      // Add the new item to the local itemsData array
+
+      // Add the new item
       itemsData.push(data);
 
       // Close the modal and reset the form
@@ -260,7 +268,10 @@ if (!category || category === "" || category === "Choose a category") {
     })
     .catch(error => {
       console.error('Error adding item:', error);
-    });
+    })
+.finally(() => {
+  hideLoading(); 
+});
   }
 });
 
@@ -292,3 +303,58 @@ document.getElementById('contactSellerForm').addEventListener('submit', function
     console.log('Message sent to', sellerEmail, 'Message:', message);
     alert('Message sent to the seller!');
 });
+
+function attachViewDetailHandlers() {
+  const viewDetailButtons = document.querySelectorAll('.view-details-btn');
+  viewDetailButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      const itemId = event.target.dataset.itemId;
+      const item = itemsData.find(item => item.id === itemId);
+
+      if (item) {
+        // Set item details in the modal
+        document.getElementById('itemDetailTitle').textContent = item.title;
+        document.getElementById('itemDetailImage').src = item.image;
+        document.getElementById('itemDetailDescription').textContent = item.description;
+        document.getElementById('itemDetailPrice').textContent = item.price;
+        document.getElementById('itemDetailCategory').textContent = item.category;
+        document.getElementById('itemDetailEmail').textContent = item.email;
+        document.getElementById('itemDetailPhone').textContent = item.phone;
+        
+        // Show modal
+        const itemDetailModal = new bootstrap.Modal(document.getElementById('itemDetailModal'));
+        itemDetailModal.show();
+      }
+    });
+  });
+}
+
+
+function populateModalWithData(item) {
+  // Populate the modal with item details
+  const modal = document.getElementById('itemDetailModal');
+  modal.querySelector('.modal-title').textContent = item.title;
+  modal.querySelector('.modal-body .description').textContent = item.description;
+  modal.querySelector('.modal-body .price').textContent = `${item.price} BHD`;
+  modal.querySelector('.modal-body .location').textContent = item.location;
+  
+  // Add the same contact seller button to the modal as on the main page
+  const contactButton = modal.querySelector('.contact-seller-btn');
+contactButton.setAttribute('data-item-id', item.id);
+contactButton.addEventListener('click', () => {
+  // Add any specific contact seller functionality here
+  alert(`Contacting seller for item: ${item.id}`);
+});
+
+  
+  // Show the modal
+  $('#itemDetailModal').modal('show');
+}
+
+function showLoading() {
+  document.getElementById('loadingIndicator').classList.remove('d-none');
+}
+
+function hideLoading() {
+  document.getElementById('loadingIndicator').classList.add('d-none');
+}

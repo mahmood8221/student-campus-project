@@ -211,3 +211,12 @@ a:hover {
 }
 
 
+#contactSellerModal {
+  z-index: 1051 !important; 
+}
+
+
+#itemDetailModal {
+  z-index: 1050 !important; 
+}
+
