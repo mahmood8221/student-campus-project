@@ -1,120 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Campus Hub | Campus News</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Hub</title>
   <link rel="stylesheet" href="News.css">
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+<!-- Header -->
+<header>
   <div class="container">
-    <a class="navbar-brand" href="../Home/index.html">Campus Hub</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="../EvantsCalendar/EventsCalendar.html">Events Calendar</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Study Group Finder</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Course Reviews</a></li>
-        <li class="nav-item"><a class="nav-link" href="../CourseNote/CN.html">Course Notes</a></li>
-        <li class="nav-item"><a class="nav-link active" href="News.html">Campus News</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Club Activities</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Student Marketplace</a></li>
+    <!-- Logo Section -->
+    <div class="logo-container">
+      <img src="CH1.jpg" alt="Campus Hub Logo" class="logo">
+    </div>
+    
+    <!-- Navigation -->
+    <nav>
+      <ul class="main-nav">
+        <li><a href="#">Events Calendar</a></li>
+        <li><a href="#">Study Group Finder</a></li>
+        <li><a href="#">Course Reviews</a></li>
+        <li><a href="#">Course Notes</a></li>
+        <li><a href="#">Campus News</a></li>
+        <li><a href="#">Club Activities</a></li>
+        <li><a href="#">Student Marketplace</a></li>
+        <li><a href="#">Home</a></li>
       </ul>
+      
+      <!-- Mobile Menu Button -->
+      <button id="menu-toggle">&#9776;</button>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <video autoplay muted loop class="background-video">
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  
+  <div class="overlay"></div>
+  
+  <div class="content">
+    <h1>TODAY'S CAMPUS NEWS</h1>
+    <h2>Ending Hunger: Community Project Feeds Over 12,000 Kids in South Africa</h2>
+    <p>Education | South Africa</p>
+    <div class="hero-buttons">
+      <button onclick="location.href='read.html?id=1'">Read More</button>
+      <button onclick="location.href='add.html'">Add News</button>
     </div>
   </div>
-</nav>
+</section>
 
-<!-- Main Content -->
-<main class="container my-5">
-
-  <!-- Controls Section -->
-  <section class="controls-section mb-4">
-    <div class="row g-3">
-      <div class="col-md-6">
-        <input type="search" id="searchInput" class="form-control" placeholder="Search news..." aria-label="Search news articles">
+<!-- Latest Stories -->
+<section class="latest-stories">
+  <div class="container">
+    <div class="controls">
+      <div class="search-wrapper">
+        <input type="text" id="searchInput" placeholder="Search articles...">
+        <button id="searchButton" class="search-btn">🔍</button>
       </div>
-      <div class="col-md-3">
-        <select class="form-select" id="filterCategory">
-          <option value="all">All Categories</option>
-          <option value="events">Events</option>
-          <option value="announcements">Announcements</option>
-          <option value="clubs">Clubs</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <select class="form-select" id="sortBy">
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
-          <option value="popular">Most Popular</option>
-        </select>
-      </div>
+      <select id="filterCategory">
+        <option value="all">All Categories</option>
+      </select>
     </div>
-  </section>
+    
+    <h2>Latest Stories</h2>
+    
+    <div class="carousel-container">
+      <button class="carousel-btn prev-btn">&#8249;</button>
+      <div class="carousel-track">
+        <div id="news-container" class="carousel-cards"></div>
+      </div>
+      <button class="carousel-btn next-btn">&#8250;</button>
+    </div>
+    
+    <div id="errorMessage" class="error-message"></div>
+    
+    <nav aria-label="Page navigation" class="pagination-container">
+      <ul id="pagination" class="pagination"></ul>
+    </nav>
+  </div>
+</section>
 
-  <!-- Skeleton Loader -->
-<div id="skeletonLoader" style="display: none;">
-  <div class="row">
-    <!-- Repeat this card several times for effect -->
-    <div class="col-md-4 mb-4" aria-hidden="true">
-      <div class="news-card skeleton">
-        <div class="card-header skeleton" style="height: 3rem;"></div>
-        <div class="skeleton" style="height: 200px;"></div>
-        <div class="card-content p-3">
-          <div class="skeleton" style="width: 60%; height: 1.5rem; margin-bottom: 1rem;"></div>
-          <div class="skeleton" style="width: 80%; height: 1rem; margin-bottom: 0.5rem;"></div>
-          <div class="skeleton" style="width: 70%; height: 1rem; margin-bottom: 0.5rem;"></div>
-          <div class="skeleton" style="width: 50%; height: 1rem;"></div>
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <img src="CH1.jpg" alt="Campus Hub Logo" class="footer-logo">
+    
+    <div class="footer-links">
+      <div class="footer-column">
+        <h3>About</h3>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
-    <!-- You can copy the col-md-4 div to add 6, 9, etc., depending on how many you want -->
-  </div>
-</div>
-
-  <!-- Add News Button -->
-  <div class="text-end mb-4">
-    <a href="NewsAdd/Add.html" class="btn btn-primary">+ Add News Article</a>
-  </div>
-
-  <!-- Loading Overlay -->
-  <div class="loading-overlay d-none" id="loading">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-
-  <!-- Error Message -->
-  <div class="alert alert-danger d-none" id="errorMessage"></div>
-
-  <!-- Dynamic News Grid -->
-  <section id="news-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    <!-- JavaScript will populate cards here -->
-  </section>
-
-  <!-- Pagination Controls -->
-  <nav class="pagination-section mt-5 d-flex justify-content-center">
-    <ul class="pagination" id="pagination">
-      <!-- JavaScript will populate pagination buttons here -->
-    </ul>
-  </nav>
-
-</main>
-
-<!-- Footer -->
-<footer class="main-footer text-center py-4 bg-dark text-white mt-5">
-  <div class="container">
-    <small>© 2025 Campus Hub. All rights reserved.</small>
+    
+    <p>&copy; 2025 Campus Hub. All rights reserved.</p>
   </div>
 </footer>
 
 <script src="News.js"></script>
-
 </body>
 </html>
