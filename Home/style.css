@@ -145,7 +145,7 @@ header nav a {
 
 header nav button {
   -webkit-appearance: none;
-  background: rgba(0, 0, 0, 0.3);
+  appearance: none;  background: rgba(0, 0, 0, 0.3);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
