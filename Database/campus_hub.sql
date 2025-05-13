@@ -128,14 +128,17 @@ CREATE TABLE group_members (
 -- -----------------------------------------------------
 CREATE TABLE notes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    course_id INT NOT NULL,
-    user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
-    content TEXT,
+    course VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    file_path VARCHAR(255) DEFAULT NULL,
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    INDEX (course),
+    INDEX (title)
 );
+
+
+
 
 -- -----------------------------------------------------
 -- Table: news
