@@ -22,7 +22,7 @@ body {
 header {
   position: relative;
   z-index: 999;
-  padding: 1.5rem 0;
+  padding: 1rem 0; /* Reduced vertical padding */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,10 +34,11 @@ header {
 }
 
 .logo {
-  width: 150px; /* Reduced size */
+  width: 80px; /* Further reduced size */
   height: auto;
   transition: transform 0.3s ease;
-  margin-right: 2rem; /* Add spacing */
+  margin-right: 1.5rem;
+  vertical-align: middle; /* Align with nav items */
 }
 
 .logo:hover {
@@ -47,8 +48,8 @@ header {
 .main-nav {
   list-style: none;
   display: flex;
-  gap: 2rem;
-  font-size: 1.1rem;
+  gap: 1.5rem;
+  font-size: 1rem;
 }
 
 .main-nav li a {
@@ -124,13 +125,13 @@ header {
 }
 
 .content h1 {
-  font-size: 3.5rem;
+  font-size: 3rem; /* Slightly smaller */
   margin-bottom: 1.5rem;
 }
 
 .content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .content p {
@@ -147,18 +148,6 @@ header {
 .content button:first-child {
   background: #ff6b6b;
   color: #fff;
-  margin-right: 1rem;
-}
-
-.content button:last-child {
-  background: transparent;
-  border: 2px solid #ff6b6b;
-  color: #ff6b6b;
-}
-
-.content button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* Latest Stories */
@@ -221,14 +210,15 @@ header {
 .carousel-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  position: relative; /* For arrow positioning */
 }
 
 .news-card {
-  min-width: 300px;
-  margin-right: 2rem;
+  min-width: 250px; /* Adjusted for 10 cards per slide */
+  margin-right: 1.5rem;
   background: #111;
   border-radius: 0.5rem;
-  padding: 1.5rem;
+  padding: 1rem;
   transition: transform 0.3s ease;
 }
 
@@ -239,7 +229,7 @@ header {
 
 .card-image {
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
@@ -250,11 +240,13 @@ header {
   gap: 1rem;
   margin-bottom: 1rem;
   color: #aaa;
+  font-size: 0.9rem;
 }
 
 .read-more {
   color: #ff6b6b;
   text-decoration: none;
+  font-size: 0.95rem;
   transition: color 0.3s ease;
 }
 
@@ -270,11 +262,12 @@ header {
 }
 
 .page-link {
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 0.5rem;
   background: #333;
   color: #fff;
   transition: all 0.3s ease;
+  font-size: 0.95rem;
 }
 
 .page-link.active {
@@ -286,31 +279,61 @@ header {
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
+/* Carousel Arrows */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.carousel-btn.prev-btn {
+  left: 1rem;
+}
+
+.carousel-btn.next-btn {
+  right: 1rem;
+}
+
+.carousel-btn:hover {
+  opacity: 1;
+}
+
 /* Footer */
 footer {
-  padding: 4rem 0;
-  background: #000;
+  padding: 3rem 0;
+  background: #0a0a0a;
   color: #aaa;
 }
 
 .footer-logo {
-  width: 150px; /* Match header logo size */
-  margin-bottom: 2rem;
+  width: 80px; /* Match header logo size */
+  margin-bottom: 1.5rem;
 }
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-}
-
-.footer-column {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
+.footer-column {
+  margin-bottom: 1.5rem;
+}
+
 .footer-column h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
 }
 
 .footer-links ul {
@@ -318,10 +341,10 @@ footer {
 }
 
 .footer-links li a {
-  color: #fff;
+  color: #ccc;
   text-decoration: none;
   display: block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   transition: color 0.3s ease;
 }
 
@@ -331,13 +354,13 @@ footer {
 
 .social-icons {
   display: flex;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .social-icons a {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   transition: color 0.3s ease;
 }
 
@@ -347,5 +370,6 @@ footer {
 
 .copyright {
   margin-top: 2rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  color: #777;
 }

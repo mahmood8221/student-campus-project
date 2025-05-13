@@ -1,8 +1,8 @@
 // ==============================
-// Campus Hub News Module
+// Today's Campus News Module
 // ==============================
 const API_URL = 'https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news ';
-const CARDS_PER_SLIDE = 3; // Number of cards per slide
+const CARDS_PER_SLIDE = 4; // Display 10 news items per slide
 const SLIDE_INTERVAL = 5000; // Auto-slide every 5 seconds
 
 // State management
@@ -23,7 +23,7 @@ const elements = {
   searchInput: document.getElementById('searchInput'),
   filterCategory: document.getElementById('filterCategory'),
   errorMessage: document.getElementById('errorMessage'),
-  skeletonLoader: document.getElementById('skeletonLoader')
+  pagination: document.getElementById('pagination')
 };
 
 // Fallback data in case API fails
@@ -36,7 +36,7 @@ const fallbackData = [
 // ==============================
 
 async function fetchArticles() {
-  showLoader();
+  showErrorMessage('');
   
   try {
     const response = await fetch(API_URL);
@@ -46,6 +46,7 @@ async function fetchArticles() {
     appState.articles = data;
     extractCategories(data);
     filterArticles();
+    renderPagination();
     setupCarousel();
   } catch (error) {
     console.error('API Error:', error);
@@ -53,9 +54,8 @@ async function fetchArticles() {
     appState.articles = fallbackData;
     extractCategories(fallbackData);
     filterArticles();
+    renderPagination();
     setupCarousel();
-  } finally {
-    hideLoader();
   }
 }
 
@@ -87,13 +87,14 @@ function filterArticles() {
   
   appState.totalSlides = Math.ceil(appState.filteredArticles.length / CARDS_PER_SLIDE);
   appState.currentPage = Math.min(appState.currentPage, appState.totalSlides || 1);
+
+  renderPagination();
+  updateCarouselPosition();
 }
 
 function setupCarousel() {
-  // Clear existing content
   elements.carouselTrack.innerHTML = '';
   
-  // Create card elements
   appState.filteredArticles.forEach(article => {
     const card = document.createElement('div');
     card.className = 'news-card animate';
@@ -118,22 +119,17 @@ function setupCarousel() {
     elements.carouselTrack.appendChild(card);
   });
   
-  // Calculate initial position
   updateCarouselPosition();
-  
-  // Start auto-sliding
   startAutoSlide();
 }
 
 function updateCarouselPosition() {
-  const cardWidth = elements.carouselTrack.querySelector('.news-card')?.offsetWidth || 300;
-  const totalCards = appState.filteredArticles.length;
-  const maxScroll = (totalCards - CARDS_PER_SLIDE) * cardWidth;
-  const currentScroll = (appState.currentPage - 1) * CARDS_PER_SLIDE * cardWidth;
+  const cardWidth = elements.carouselTrack.querySelector('.news-card')?.offsetWidth || 250;
+  const currentOffset = (appState.currentPage - 1) * CARDS_PER_SLIDE * cardWidth;
   
-  elements.carouselTrack.style.transform = `translateX(-${currentScroll}px)`;
-  
-  // Disable buttons when at edges
+  elements.carouselTrack.style.transform = `translateX(-${currentOffset}px)`;
+
+  // Update button states
   elements.prevBtn.disabled = appState.currentPage === 1;
   elements.nextBtn.disabled = appState.currentPage === appState.totalSlides;
 }
@@ -149,6 +145,7 @@ function startAutoSlide() {
     }
     
     updateCarouselPosition();
+    updatePaginationButtons();
   }, SLIDE_INTERVAL);
 }
 
@@ -166,7 +163,36 @@ function changePage(direction) {
   }
   
   updateCarouselPosition();
+  updatePaginationButtons();
   startAutoSlide();
+}
+
+function goToPage(pageNumber) {
+  stopAutoSlide();
+  appState.currentPage = pageNumber;
+  updateCarouselPosition();
+  updatePaginationButtons();
+  startAutoSlide();
+}
+
+function renderPagination() {
+  if (!elements.pagination) return;
+
+  elements.pagination.innerHTML = '';
+
+  const totalPages = appState.totalSlides;
+  for (let i = 1; i <= totalPages; i++) {
+    const li = document.createElement('li');
+    li.innerHTML = `<button class="page-link ${i === appState.currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+    elements.pagination.appendChild(li);
+  }
+}
+
+function updatePaginationButtons() {
+  const buttons = document.querySelectorAll('.page-link');
+  buttons.forEach((btn, index) => {
+    btn.classList.toggle('active', index + 1 === appState.currentPage);
+  });
 }
 
 function formatDate(timestamp) {
@@ -190,30 +216,21 @@ function showErrorMessage(message) {
   setTimeout(() => elements.errorMessage.classList.add('d-none'), 4000);
 }
 
-function showLoader() {
-  if (elements.skeletonLoader) elements.skeletonLoader.style.display = 'flex';
-  if (elements.carouselTrack) elements.carouselTrack.style.display = 'none';
-}
-
-function hideLoader() {
-  if (elements.skeletonLoader) elements.skeletonLoader.style.display = 'none';
-  if (elements.carouselTrack) elements.carouselTrack.style.display = 'flex';
-}
-
 // Event Listeners
 elements.prevBtn?.addEventListener('click', () => changePage('prev'));
 elements.nextBtn?.addEventListener('click', () => changePage('next'));
 
+// Real-time search filtering
 elements.searchInput?.addEventListener('input', () => {
-  appState.currentPage = 1;
+  appState.currentPage = 1; // Reset page to 1 when searching
   filterArticles();
-  setupCarousel();
+  setupCarousel(); // Re-render the carousel
 });
 
 elements.filterCategory?.addEventListener('change', () => {
-  appState.currentPage = 1;
+  appState.currentPage = 1; // Reset page to 1 when changing category
   filterArticles();
-  setupCarousel();
+  setupCarousel(); // Re-render the carousel
 });
 
 // Initialization
