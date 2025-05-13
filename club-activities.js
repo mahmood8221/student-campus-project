@@ -1,4 +1,5 @@
 // Global Variables
+const API_BASE_URL = "http://localhost/itcs333/api/";
 let currentPage = 1;
 const activitiesPerPage = 6;
 let allActivities = [];
@@ -23,10 +24,20 @@ document.addEventListener("DOMContentLoaded", () => {
     showSection('home-section');
   });
 
-  document.querySelector(".nav-link[href='#club-activities']").addEventListener("click", (e) => {
-    e.preventDefault();
+document.querySelector(".nav-link[href='#club-activities']").addEventListener("click", (e) => {
+  e.preventDefault();
+  
+  // Check if the element exists before showing it
+  const section = document.getElementById('main-listing');
+  if (section) {
     showSection('main-listing');
-  });
+    fetchActivities();
+  } else {
+    console.error("Section 'main-listing' not found.");
+  }
+});
+
+
 
   document.querySelector(".nav-link[href='#about']").addEventListener("click", (e) => {
     e.preventDefault();
@@ -44,27 +55,46 @@ function showSection(sectionId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Fetch Activities from MockAPI
+// Fetch Activities with Simulated Delay
 function fetchActivities() {
-  document.getElementById("loading").style.display = "block";
-  fetch("https://680cd55e2ea307e081d52bcc.mockapi.io/api/v1/club-activities")
-    .then(response => response.json())
-    .then(data => {
-      allActivities = data;
-      document.getElementById("loading").style.display = "none";
-      renderPaginatedActivities(allActivities);
-    })
-    .catch(error => {
-      console.error("Error fetching activities:", error);
-      document.getElementById("loading").style.display = "none";
-      alert("Failed to fetch activities.");
-    });
+    const url = `${API_BASE_URL}get_activities.php`;
+    const loadingIndicator = document.getElementById("loading");
+    const list = document.getElementById("activity-list");
+
+    // Show the loading indicator
+    loadingIndicator.style.display = "block";
+    list.innerHTML = ""; 
+
+    console.log("Fetching from:", url); 
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Data fetched:", data);
+            allActivities = data;
+
+            // Simulate delay
+            setTimeout(() => {
+                renderPaginatedActivities(allActivities);
+                loadingIndicator.style.display = "none";
+            }, 1000); 
+        })
+        .catch(error => {
+            console.error("Error fetching activities:", error);
+            alert("Failed to fetch activities.");
+            loadingIndicator.style.display = "none";
+        });
 }
+
+
 
 // Render paginated activities
 function renderPaginatedActivities(activities) {
   const list = document.getElementById("activity-list");
   list.innerHTML = "";
+
+  // Hide the loading icon
+  document.getElementById("loading").style.display = "none";
 
   const start = (currentPage - 1) * activitiesPerPage;
   const paginatedActivities = activities.slice(start, start + activitiesPerPage);
@@ -96,6 +126,7 @@ function renderPaginatedActivities(activities) {
 
   updatePagination(activities.length);
 }
+
 
 // Update pagination buttons
 function updatePagination(totalItems) {
@@ -214,7 +245,8 @@ function createActivity(event) {
     image: "https://placehold.co/300x200"
   };
 
-  fetch("https://680cd55e2ea307e081d52bcc.mockapi.io/api/v1/club-activities", {
+  fetch(`${API_BASE_URL}add_activity.php`, {
+
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newActivity)
@@ -234,9 +266,14 @@ function createActivity(event) {
 // Delete Activity
 function deleteActivity(id) {
   if (confirm("Are you sure you want to delete this activity?")) {
-    fetch(`https://680cd55e2ea307e081d52bcc.mockapi.io/api/v1/club-activities/${id}`, {
-      method: "DELETE"
-    })
+    fetch(`${API_BASE_URL}delete_activity.php`, {
+    method: "DELETE",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ id })
+})
+
       .then(response => response.json())
       .then(() => {
         alert("Activity deleted successfully!");
@@ -263,28 +300,40 @@ function openEditModal(activity) {
 
 // Submit Edited Activity
 function submitEditActivity(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  const id = document.getElementById("editActivityId").value;
-  const updatedActivity = {
-    title: document.getElementById("editActivityTitle").value.trim(),
-    description: document.getElementById("editActivityDescription").value.trim(),
-    date: document.getElementById("editActivityDate").value,
-    location: document.getElementById("editActivityLocation").value
-  };
+    const id = document.getElementById("editActivityId").value;
+    const updatedActivity = {
+        id,
+        title: document.getElementById("editActivityTitle").value.trim(),
+        description: document.getElementById("editActivityDescription").value.trim(),
+        date: document.getElementById("editActivityDate").value,
+        location: document.getElementById("editActivityLocation").value
+    };
 
-  fetch(`https://680cd55e2ea307e081d52bcc.mockapi.io/api/v1/club-activities/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedActivity)
-  })
+    fetch(`${API_BASE_URL}update_activity.php`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedActivity)
+    })
     .then(response => response.json())
-    .then(() => {
-      alert("Activity updated successfully!");
-      fetchActivities();
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+            console.log(data.error);
+        } else {
+            alert("Activity updated successfully!");
+            fetchActivities(); // Refresh the activity list
+
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('editActivityModal'));
+            modal.hide();
+        }
     })
     .catch(error => {
-      console.error("Error updating activity:", error);
-      alert("Failed to update activity.");
+        console.error("Error updating activity:", error);
+        alert("Failed to update activity.");
     });
 }
