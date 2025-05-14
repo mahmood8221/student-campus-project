@@ -118,9 +118,9 @@ function filterAndSort(list) {
         filtered.sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortBy === 'Z-A') {
         filtered.sort((a, b) => b.title.localeCompare(a.title));
-    } else if (sortBy === 'Old-New') {
+    } else if (sortBy === 'old-new') {
         filtered.sort((a, b) => a.id - b.id); 
-    } else if (sortBy === 'New-Old') {
+    } else if (sortBy === 'new-old') {
         filtered.sort((a, b) => b.id - a.id); 
     }
 
