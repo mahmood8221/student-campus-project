@@ -107,16 +107,26 @@ function renderNotes() {
 }
 
 function filterAndSort(list) {
+    // Filter by search input
     let filtered = list.filter(note =>
         note.title.toLowerCase().includes(searchInput.value.toLowerCase())
     );
 
+    // Apply sorting
     const sortBy = sortSelect.value;
-    if (sortBy === 'A-Z') filtered.sort((a, b) => a.title.localeCompare(b.title));
-    else if (sortBy === 'Z-A') filtered.sort((a, b) => b.title.localeCompare(a.title));
+    if (sortBy === 'A-Z') {
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'Z-A') {
+        filtered.sort((a, b) => b.title.localeCompare(a.title));
+    } else if (sortBy === 'Old-New') {
+        filtered.sort((a, b) => a.id - b.id); 
+    } else if (sortBy === 'New-Old') {
+        filtered.sort((a, b) => b.id - a.id); 
+    }
 
     return filtered;
 }
+
 
 function paginate(array, page, perPage) {
     const start = (page - 1) * perPage;
