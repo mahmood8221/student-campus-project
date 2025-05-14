@@ -1,6 +1,7 @@
 
 
-const apiURL = "https://681cf49af74de1d219ae5ed8.mockapi.io/StudentMarketPlace";
+const apiURL = 'https://d8a050ec-60d2-4649-8662-1a13b4235fbb-00-3h16e67wguxgj.sisko.replit.dev/api/market_api.php';
+
 
 let itemsData=[];
 let currentPage = 1;
@@ -233,18 +234,22 @@ if (!category || category === "" || category === "Choose a category") {
   // If all validations pass, submit the form
   if (valid) {
     const newItem = {
-      title,
-      description,
-      category,
-      email,
-      image,
-      phone,
-      price,
-      createdAt: new Date().toISOString(),
-    };
+  title,
+  description,
+  category,
+  email,
+  image,
+  phone,
+  price,
+  createdAt: new Date().toISOString()
+};
+
+
+    console.log('Submitting item:', newItem);
 
     // Add new item to the marketplace
     showLoading();
+
     fetch(apiURL, {
       method: 'POST',
       headers: {
@@ -255,18 +260,24 @@ if (!category || category === "" || category === "Choose a category") {
     .then(response => response.json())
     .then(data => {
 
+     if (data.success) {
       // Add the new item
-      itemsData.push(data);
+      itemsData.unshift(data.item);
 
       // Close the modal and reset the form
-      const addItemModal = new bootstrap.Modal(document.getElementById('addItemModal'));
+      const addItemModalEl = document.getElementById('addItemModal');
+      const addItemModal = bootstrap.Modal.getInstance(addItemModalEl);
       addItemModal.hide();
       addItemForm.reset();
 
       // Re-display the items
       displayItems(itemsData);
       createPagination(itemsData);
-    })
+    } else {
+      console.error('failed to add item:', data);
+    }
+  
+  })
     .catch(error => {
       console.error('Error adding item:', error);
     })
@@ -300,10 +311,50 @@ document.getElementById('contactSellerForm').addEventListener('submit', function
     const message = document.getElementById('message').value;
     const sellerEmail = document.getElementById('sellerEmail').value;
 
-    // Here, you can handle sending the message to the seller (e.g., via an API)
+    // Log for debugging
     console.log('Message sent to', sellerEmail, 'Message:', message);
-    alert('Message sent to the seller!');
+
+    // Send message using fetch
+    fetch(apiURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'messageSeller',
+            email: sellerEmail,
+            message: message
+        }),
+    })
+    .then(response => {
+        // Try to parse JSON if status is OK
+        if (response.ok) {
+            return response.json();
+        } else {
+            return response.text(); // Could be HTML error page
+        }
+    })
+    .then(data => {
+        if (typeof data === 'object' && data.success) {
+            alert('Message sent to the seller!');
+            // Close the modal
+            const contactModalEl = document.getElementById('contactSellerModal');
+            const contactModal = bootstrap.Modal.getInstance(contactModalEl);
+            contactModal.hide();
+        } else {
+            console.error('Failed to send message:', data);
+            alert('There was an issue sending the message.');
+        }
+    })
+    .catch(error => {
+        console.error('Error sending message:', error);
+        alert('There was an error processing your request.');
+    });
 });
+
+
+// Create the modal instance once when the script runs
+const itemDetailModalInstance = new bootstrap.Modal(document.getElementById('itemDetailModal'));
 
 function attachViewDetailHandlers() {
   const viewDetailButtons = document.querySelectorAll('.view-details-btn');
@@ -322,13 +373,13 @@ function attachViewDetailHandlers() {
         document.getElementById('itemDetailEmail').textContent = item.email;
         document.getElementById('itemDetailPhone').textContent = item.phone;
         
-        // Show modal
-        const itemDetailModal = new bootstrap.Modal(document.getElementById('itemDetailModal'));
-        itemDetailModal.show();
+        // Show the modal using the existing instance
+        itemDetailModalInstance.show();
       }
     });
   });
 }
+
 
 
 function populateModalWithData(item) {
