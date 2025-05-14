@@ -23,7 +23,7 @@ async function fetchNotes() {
                     <strong>${n.title}</strong><br><br>
                     Course: ${n.course}<br>
                     Content: ${n.content}<br>
-                    ${n.file ? `<a href="${n.file.url}" download="${n.file.name}">📎 ${n.file.name}</a>` : ''}
+                    ${n.file ? `<a href="https://9f6055a6-4f37-410e-bdd0-9ed4b8e4a48f-00-uw6bqvrayvp5.sisko.replit.dev/a/uploads" download="${n.file.name}">📎 ${n.file.name}</a>` : ''}
                 </div>
             `
         }));
