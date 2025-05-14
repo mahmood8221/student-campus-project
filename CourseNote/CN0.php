@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 
 
 
-$host = "";
+$host = "localhost";
 $user = getenv("db_user");
 $pass = getenv("db_pass");
 $db = getenv("db_name");
