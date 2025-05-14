@@ -108,7 +108,7 @@ function renderPaginatedActivities(activities) {
     const card = `
       <div class="col-md-4 mb-4">
         <div class="card">
-          <img src="${activity.image || 'https://placehold.co/300x200'}" class="card-img-top" alt="${activity.title}">
+          <img src="${API_BASE_URL}${activity.image}" class="card-img-top" alt="${activity.title}" onerror="this.src='https://placehold.co/300x200'">
           <div class="card-body">
             <h5 class="card-title">${activity.title}</h5>
             <p class="card-text">${activity.description}</p>
@@ -223,45 +223,52 @@ function openDetailModal(activity) {
   modal.show();
 }
 
-// Create New Activity
+// Create New Activity with Image Upload
 function createActivity(event) {
   event.preventDefault();
 
+  const formData = new FormData();
   const title = document.getElementById("activityTitle").value.trim();
   const description = document.getElementById("activityDescription").value.trim();
   const date = document.getElementById("activityDate").value;
-  const location = document.getElementById("activityLocation").value.trim();
+  const location = document.getElementById("activityLocation").value;
+  const imageFile = document.getElementById("activityImage").files[0];
 
   if (!title || !description || !date || !location) {
     alert("All fields are required.");
     return;
   }
 
-  const newActivity = {
-    title,
-    description,
-    date,
-    location,
-    image: "https://placehold.co/300x200"
-  };
+  formData.append("title", title);
+  formData.append("description", description);
+  formData.append("date", date);
+  formData.append("location", location);
+
+  if (imageFile) {
+    formData.append("image", imageFile);
+  }
 
   fetch(`${API_BASE_URL}add_activity.php`, {
-
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newActivity)
+    body: formData
   })
     .then(response => response.json())
-    .then(() => {
-      alert("Activity created successfully!");
-      document.getElementById("createActivityForm").reset();
-      fetchActivities();
+    .then(data => {
+      if (data.error) {
+        alert(data.error);
+        console.error(data.error);
+      } else {
+        alert("Activity created successfully!");
+        document.getElementById("createActivityForm").reset();
+        fetchActivities(); 
+      }
     })
     .catch(error => {
       console.error("Error creating activity:", error);
       alert("Failed to create activity.");
     });
 }
+
 
 // Delete Activity
 function deleteActivity(id) {
@@ -325,7 +332,7 @@ function submitEditActivity(event) {
             console.log(data.error);
         } else {
             alert("Activity updated successfully!");
-            fetchActivities(); // Refresh the activity list
+            fetchActivities(); 
 
             // Close the modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('editActivityModal'));

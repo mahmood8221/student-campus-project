@@ -100,34 +100,33 @@
 
       <!-- Create New Activity Form -->
       <section id="item-creation-form" class="mt-5">
-        <h2>Create New Activity</h2>
-        <form id="createActivityForm">
-          <div class="mb-3">
-            <label for="activityTitle" class="form-label">Title</label>
-            <input type="text" class="form-control" id="activityTitle" required>
-            <div id="titleError" class="text-danger small"></div>
-          </div>
-          <div class="mb-3">
-            <label for="activityDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="activityDescription" rows="3" required></textarea>
-            <div id="descriptionError" class="text-danger small"></div>
-          </div>
-          <div class="mb-3">
-            <label for="activityDate" class="form-label">Date</label>
-            <input type="date" class="form-control" id="activityDate" required>
-            <div id="dateError" class="text-danger small"></div>
-          </div>
-          <div class="mb-3">
-            <label for="activityLocation" class="form-label">Location</label>
-            <input type="text" class="form-control" id="activityLocation" required>
-            <div id="locationError" class="text-danger small"></div>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <a href="#main-listing" class="btn btn-secondary">Cancel</a>
-        </form>
-      </section>
+  <h2>Create New Activity</h2>
+  <form id="createActivityForm">
+    <div class="mb-3">
+      <label for="activityTitle" class="form-label">Title</label>
+      <input type="text" class="form-control" id="activityTitle" required>
+    </div>
+    <div class="mb-3">
+      <label for="activityDescription" class="form-label">Description</label>
+      <textarea class="form-control" id="activityDescription" rows="3" required></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="activityDate" class="form-label">Date</label>
+      <input type="date" class="form-control" id="activityDate" required>
+    </div>
+    <div class="mb-3">
+      <label for="activityLocation" class="form-label">Location</label>
+      <input type="text" class="form-control" id="activityLocation" required>
+    </div>
+    <div class="mb-3">
+      <label for="activityImage" class="form-label">Upload Image</label>
+      <input type="file" class="form-control" id="activityImage" name="image" accept="image/*">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="#main-listing" class="btn btn-secondary">Cancel</a>
+  </form>
+</section>
 
-    </section>
 
     <!-- About Section -->
     <section id="about-section" class="mb-5" style="display:none;">
