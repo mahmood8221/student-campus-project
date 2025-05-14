@@ -1,237 +1,205 @@
 // ==============================
-// Today's Campus News Module
+// Campus Hub - News Module (Improved)
 // ==============================
-const API_URL = 'https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news ';
-const CARDS_PER_SLIDE = 4; // Display 10 news items per slide
-const SLIDE_INTERVAL = 5000; // Auto-slide every 5 seconds
 
-// State management
-const appState = {
+// Constants
+const API_URL = 'https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news ';
+const ITEMS_PER_PAGE = 6;
+
+// State Management
+const state = {
   currentPage: 1,
+  totalPages: 1,
   articles: [],
   filteredArticles: [],
-  categories: [],
-  totalSlides: 0,
-  autoSlideInterval: null,
 };
 
 // DOM Elements
-const elements = {
-  carouselTrack: document.querySelector('.carousel-track'),
-  prevBtn: document.querySelector('.prev-btn'),
-  nextBtn: document.querySelector('.next-btn'),
-  searchInput: document.getElementById('searchInput'),
-  filterCategory: document.getElementById('filterCategory'),
-  errorMessage: document.getElementById('errorMessage'),
-  pagination: document.getElementById('pagination')
-};
+const newsContainer = document.getElementById('news-container');
+const skeletonLoader = document.getElementById('skeletonLoader');
+const pagination = document.getElementById('pagination');
+const searchInput = document.getElementById('searchInput');
+const filterSelect = document.getElementById('filterCategory'); // Fixed ID
+const errorMessage = document.getElementById('errorMessage');
 
-// Fallback data in case API fails
+// Mock fallback data (in case API fails)
 const fallbackData = [
-  // ... (same as before)
+  {
+    id: '1',
+    title: 'Campus Event: Tech Fair 2025',
+    author: 'Admin',
+    date: '2025-04-05T10:00:00Z',
+    category: 'events',
+    views: 150,
+    content: 'Join us for the annual Tech Fair showcasing student innovations.',
+    image: 'https://placehold.co/600x400?text=Tech+Fair+2025 ',
+  },
+  {
+    id: '2',
+    title: 'New Student Club Launched',
+    author: 'Jane Doe',
+    date: '2025-04-03T14:00:00Z',
+    category: 'clubs',
+    views: 98,
+    content: 'The Entrepreneurship Club is now accepting new members.',
+    image: 'https://placehold.co/600x400?text=New+Club ',
+  },
 ];
 
 // ==============================
-// Core Functionality
+// Fetch Data
 // ==============================
-
 async function fetchArticles() {
-  showErrorMessage('');
-  
+  showSkeletonLoader();
   try {
     const response = await fetch(API_URL);
-    if (!response.ok) throw new Error('Failed to fetch news articles');
-    
+    if (!response.ok) throw new Error('Failed to fetch news articles.');
+
     const data = await response.json();
-    appState.articles = data;
-    extractCategories(data);
-    filterArticles();
+    state.articles = data;
+    state.filteredArticles = data;
+    state.totalPages = Math.ceil(state.filteredArticles.length / ITEMS_PER_PAGE);
+
+    renderArticles();
     renderPagination();
-    setupCarousel();
   } catch (error) {
-    console.error('API Error:', error);
-    showErrorMessage('Using fallback data due to API issues');
-    appState.articles = fallbackData;
-    extractCategories(fallbackData);
-    filterArticles();
+    console.error('API error:', error);
+    showError('Using fallback data due to API issues.');
+    state.articles = fallbackData;
+    state.filteredArticles = fallbackData;
+    state.totalPages = Math.ceil(fallbackData.length / ITEMS_PER_PAGE);
+    renderArticles();
     renderPagination();
-    setupCarousel();
+  } finally {
+    hideSkeletonLoader();
   }
 }
 
-function extractCategories(articles) {
-  const categories = new Set(articles.map(article => article.category));
-  appState.categories = ['all', ...Array.from(categories)];
-  renderCategories();
-}
+// ==============================
+// Render Functions
+// ==============================
+function renderArticles() {
+  newsContainer.innerHTML = '';
+  const start = (state.currentPage - 1) * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE;
+  const articlesToDisplay = state.filteredArticles.slice(start, end);
 
-function renderCategories() {
-  if (!elements.filterCategory) return;
-  
-  elements.filterCategory.innerHTML = appState.categories
-    .map(category => 
-      `<option value="${category}">${category.charAt(0).toUpperCase() + category.slice(1)}</option>`
-    ).join('');
-}
+  if (articlesToDisplay.length === 0) {
+    newsContainer.innerHTML = `<p class="text-center w-100">No news articles found.</p>`;
+    return;
+  }
 
-function filterArticles() {
-  const searchTerm = (elements.searchInput?.value || '').toLowerCase();
-  const selectedCategory = elements.filterCategory?.value || 'all';
-
-  appState.filteredArticles = appState.articles.filter(article => {
-    const matchesSearch = article.title?.toLowerCase().includes(searchTerm) ||
-                         article.content?.toLowerCase().includes(searchTerm);
-    const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-  
-  appState.totalSlides = Math.ceil(appState.filteredArticles.length / CARDS_PER_SLIDE);
-  appState.currentPage = Math.min(appState.currentPage, appState.totalSlides || 1);
-
-  renderPagination();
-  updateCarouselPosition();
-}
-
-function setupCarousel() {
-  elements.carouselTrack.innerHTML = '';
-  
-  appState.filteredArticles.forEach(article => {
+  articlesToDisplay.forEach(article => {
     const card = document.createElement('div');
     card.className = 'news-card animate';
-    
+
     card.innerHTML = `
-      <img src="${article.image || 'https://placehold.co/600x400?text=News '}" 
-           alt="${article.title}" 
-           class="card-image" />
+      <img src="${article.image || 'https://placehold.co/600x400?text=Placeholder '}" alt="${article.title}" class="w-100" />
       <div class="card-content">
         <h3>${article.title}</h3>
-        <div class="meta-info">
-          <span>By: ${article.author || 'Unknown'}</span>
-          <span>Date: ${formatDate(article.date)}</span>
-          <span>Category: ${article.category}</span>
-          <span>Views: ${article.views || 0}</span>
-        </div>
-        <p>${truncateText(article.content, 120)}</p>
-        <a href="NewsRead/Read.html?id=${article.id}" class="read-more">Read More →</a>
+        <p><strong>By:</strong> ${article.author || 'Unknown'}</p>
+        <p><strong>Date:</strong> ${formatDate(article.date)}</p>
+        <p><strong>Category:</strong> ${article.category}</p>
+        <p><strong>Views:</strong> ${article.views || 0}</p>
+        <p>${truncateContent(article.content, 120)}</p>
+        <a href="NewsRead/Read.html?id=${article.id}" class="read-more">Read more →</a>
       </div>
     `;
-    
-    elements.carouselTrack.appendChild(card);
+
+    newsContainer.appendChild(card);
   });
-  
-  updateCarouselPosition();
-  startAutoSlide();
-}
-
-function updateCarouselPosition() {
-  const cardWidth = elements.carouselTrack.querySelector('.news-card')?.offsetWidth || 250;
-  const currentOffset = (appState.currentPage - 1) * CARDS_PER_SLIDE * cardWidth;
-  
-  elements.carouselTrack.style.transform = `translateX(-${currentOffset}px)`;
-
-  // Update button states
-  elements.prevBtn.disabled = appState.currentPage === 1;
-  elements.nextBtn.disabled = appState.currentPage === appState.totalSlides;
-}
-
-function startAutoSlide() {
-  clearInterval(appState.autoSlideInterval);
-  
-  appState.autoSlideInterval = setInterval(() => {
-    if (appState.currentPage < appState.totalSlides) {
-      appState.currentPage++;
-    } else {
-      appState.currentPage = 1;
-    }
-    
-    updateCarouselPosition();
-    updatePaginationButtons();
-  }, SLIDE_INTERVAL);
-}
-
-function stopAutoSlide() {
-  clearInterval(appState.autoSlideInterval);
-}
-
-function changePage(direction) {
-  stopAutoSlide();
-  
-  if (direction === 'prev' && appState.currentPage > 1) {
-    appState.currentPage--;
-  } else if (direction === 'next' && appState.currentPage < appState.totalSlides) {
-    appState.currentPage++;
-  }
-  
-  updateCarouselPosition();
-  updatePaginationButtons();
-  startAutoSlide();
-}
-
-function goToPage(pageNumber) {
-  stopAutoSlide();
-  appState.currentPage = pageNumber;
-  updateCarouselPosition();
-  updatePaginationButtons();
-  startAutoSlide();
 }
 
 function renderPagination() {
-  if (!elements.pagination) return;
+  pagination.innerHTML = '';
 
-  elements.pagination.innerHTML = '';
-
-  const totalPages = appState.totalSlides;
-  for (let i = 1; i <= totalPages; i++) {
+  for (let i = 1; i <= state.totalPages; i++) {
     const li = document.createElement('li');
-    li.innerHTML = `<button class="page-link ${i === appState.currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
-    elements.pagination.appendChild(li);
+    li.className = 'page-item';
+    
+    const btn = document.createElement('button');
+    btn.textContent = i;
+    btn.className = `page-link ${i === state.currentPage ? 'active' : ''}`;
+    btn.onclick = () => changePage(i);
+    
+    li.appendChild(btn);
+    pagination.appendChild(li);
   }
 }
 
-function updatePaginationButtons() {
-  const buttons = document.querySelectorAll('.page-link');
-  buttons.forEach((btn, index) => {
-    btn.classList.toggle('active', index + 1 === appState.currentPage);
-  });
-}
-
+// ==============================
+// Utility Functions
+// ==============================
 function formatDate(timestamp) {
   try {
     const date = new Date(timestamp);
-    return isNaN(date) ? 'Unknown Date' : 
-      date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    if (isNaN(date)) throw new Error('Invalid date');
+    return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
   } catch {
     return 'Unknown Date';
   }
 }
 
-function truncateText(text, length) {
-  return text?.length > length ? text.substring(0, length) + '...' : text || '';
+function truncateContent(content, limit) {
+  return content?.length > limit ? content.substring(0, limit) + '...' : content || '';
 }
 
-function showErrorMessage(message) {
-  if (!elements.errorMessage) return;
-  elements.errorMessage.textContent = message;
-  elements.errorMessage.classList.remove('d-none');
-  setTimeout(() => elements.errorMessage.classList.add('d-none'), 4000);
+function showError(message) {
+  if (errorMessage) {
+    errorMessage.textContent = message;
+    errorMessage.classList.remove('d-none');
+    setTimeout(() => errorMessage.classList.add('d-none'), 4000);
+  }
+}
+
+// ==============================
+// Pagination Control
+// ==============================
+function changePage(pageNumber) {
+  state.currentPage = pageNumber;
+  renderArticles();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==============================
+// Search and Filter
+// ==============================
+function applyFilters() {
+  const searchTerm = (searchInput?.value || '').toLowerCase();
+  const selectedCategory = filterSelect?.value || 'all';
+
+  state.filteredArticles = state.articles.filter(article => {
+    const matchesSearch = article.title?.toLowerCase().includes(searchTerm) ||
+                          article.content?.toLowerCase().includes(searchTerm);
+    const matchesCategory = selectedCategory === 'all' || article.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  state.currentPage = 1;
+  state.totalPages = Math.ceil(state.filteredArticles.length / ITEMS_PER_PAGE);
+
+  renderArticles();
+  renderPagination();
 }
 
 // Event Listeners
-elements.prevBtn?.addEventListener('click', () => changePage('prev'));
-elements.nextBtn?.addEventListener('click', () => changePage('next'));
+searchInput?.addEventListener('input', applyFilters);
+filterSelect?.addEventListener('change', applyFilters);
 
-// Real-time search filtering
-elements.searchInput?.addEventListener('input', () => {
-  appState.currentPage = 1; // Reset page to 1 when searching
-  filterArticles();
-  setupCarousel(); // Re-render the carousel
-});
+// ==============================
+// Loading Skeleton Control
+// ==============================
+function showSkeletonLoader() {
+  if (skeletonLoader) skeletonLoader.style.display = 'block';
+  if (newsContainer) newsContainer.style.display = 'none';
+}
 
-elements.filterCategory?.addEventListener('change', () => {
-  appState.currentPage = 1; // Reset page to 1 when changing category
-  filterArticles();
-  setupCarousel(); // Re-render the carousel
-});
+function hideSkeletonLoader() {
+  if (skeletonLoader) skeletonLoader.style.display = 'none';
+  if (newsContainer) newsContainer.style.display = 'flex';
+}
 
+// ==============================
 // Initialization
+// ==============================
 document.addEventListener('DOMContentLoaded', fetchArticles);
