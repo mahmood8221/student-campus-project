@@ -1,5 +1,5 @@
 // Global Variables
-const API_BASE_URL = "http://localhost/itcs333/api/";
+const API_BASE_URL = "https://08176569-d573-4070-851e-ce1c6f362d95-00-1qchdl4tpqjde.pike.replit.dev/api/";
 let currentPage = 1;
 const activitiesPerPage = 6;
 let allActivities = [];
@@ -108,7 +108,7 @@ function renderPaginatedActivities(activities) {
     const card = `
       <div class="col-md-4 mb-4">
         <div class="card">
-          <img src="${API_BASE_URL}${activity.image}" class="card-img-top" alt="${activity.title}" onerror="this.src='https://placehold.co/300x200'">
+          <img src="${API_BASE_URL}uploads/${activity.image}" class="card-img-top" alt="${activity.title}" onerror="this.src='https://placehold.co/300x200'">
           <div class="card-body">
             <h5 class="card-title">${activity.title}</h5>
             <p class="card-text">${activity.description}</p>
@@ -209,7 +209,7 @@ function openDetailModal(activity) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <img src="${activity.image || 'https://placehold.co/300x200'}" class="img-fluid mb-3" alt="Activity Image">
+            <img src="https://08176569-d573-4070-851e-ce1c6f362d95-00-1qchdl4tpqjde.pike.replit.dev/api/uploads/${activity.image}" class="img-fluid mb-3" alt="Activity Image">
             <p>${activity.description}</p>
             <p><strong>Date:</strong> ${activity.date}</p>
             <p><strong>Location:</strong> ${activity.location}</p>
@@ -223,7 +223,7 @@ function openDetailModal(activity) {
   modal.show();
 }
 
-// Create New Activity with Image Upload
+// Create New Activity 
 function createActivity(event) {
   event.preventDefault();
 

@@ -21,7 +21,7 @@ $date = $data['date'];
 $location = $data['location'];
 
 try {
-    $stmt = $pdo->prepare("UPDATE activities SET title = ?, description = ?, date = ?, location = ? WHERE id = ?");
+    $stmt = $pdo->prepare("UPDATE club_activities SET title = ?, description = ?, date = ?, location = ? WHERE id = ?");
     $stmt->execute([$title, $description, $date, $location, $id]);
 
     echo json_encode(["message" => "Activity updated successfully"]);

@@ -10,7 +10,7 @@ if (!$pdo) {
 
 
 try {
-    $stmt = $pdo->query("SELECT * FROM activities");
+    $stmt = $pdo->query("SELECT * FROM club_activities");
     $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($activities);
 } catch (PDOException $e) {

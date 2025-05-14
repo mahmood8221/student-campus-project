@@ -4,10 +4,11 @@ header("Access-Control-Allow-Methods: GET, POST, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 
 // Database configuration
-$host = 'localhost';
-$dbname = 'campus_hub';
-$username = 'root';
-$password = '';  
+$host = '127.0.0.1';
+$dbname = getenv('db_name');
+$username = getenv('db_user');
+$password = getenv('db_pass');
+
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);

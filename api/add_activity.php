@@ -1,52 +1,44 @@
 <?php
 require 'config.php';
 
-header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Content-Type");
 
-// Ensure the uploads directory exists
-$uploads_dir = 'uploads';
-if (!is_dir($uploads_dir)) {
-    mkdir($uploads_dir, 0777, true);
+$response = [];
+$uploadDir = "uploads/";
+
+if (!is_dir($uploadDir)) {
+    mkdir($uploadDir, 0777, true);
 }
 
-// Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $title = $_POST['title'] ?? '';
-    $description = $_POST['description'] ?? '';
-    $date = $_POST['date'] ?? '';
-    $location = $_POST['location'] ?? '';
-    $imagePath = '';
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $date = $_POST['date'];
+    $location = $_POST['location'];
+    $image = '';
 
-    // Handle the image upload
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $imageName = basename($_FILES['image']['name']);
-        $targetFilePath = $uploads_dir . '/' . $imageName;
+    if (isset($_FILES['image'])) {
+        $image = basename($_FILES['image']['name']);
+        $targetPath = $uploadDir . $image;
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-            $imagePath = $targetFilePath;
-        } else {
-            echo json_encode(['error' => 'Image upload failed.']);
-            exit();
+        if (!move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
+            $response["error"] = "Failed to upload image.";
+            echo json_encode($response);
+            exit;
         }
     }
 
-    // Validate input
-    if (empty($title) || empty($description) || empty($date) || empty($location)) {
-        echo json_encode(['error' => 'All fields are required.']);
-        exit();
-    }
-
     try {
-        $stmt = $pdo->prepare("INSERT INTO activities (title, description, date, location, image) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$title, $description, $date, $location, $imagePath]);
+        $stmt = $pdo->prepare("INSERT INTO club_activities (title, description, date, location, image) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$title, $description, $date, $location, $image]);
 
-        echo json_encode(['success' => 'Activity added successfully']);
+        $response["success"] = true;
     } catch (PDOException $e) {
-        echo json_encode(['error' => $e->getMessage()]);
+        $response["error"] = $e->getMessage();
     }
-
-} else {
-    echo json_encode(['error' => 'Invalid request method']);
 }
+
+echo json_encode($response);
 ?>

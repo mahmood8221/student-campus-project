@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     }
 
     try {
-        $stmt = $pdo->prepare("DELETE FROM activities WHERE id = ?");
+        $stmt = $pdo->prepare("DELETE FROM club_activities WHERE id = ?");
         $stmt->execute([$id]);
 
         if ($stmt->rowCount() > 0) {
