@@ -1,4 +1,4 @@
-
+document.addEventListener('DOMContentLoaded', function() {
 
 const apiURL = 'https://d8a050ec-60d2-4649-8662-1a13b4235fbb-00-3h16e67wguxgj.sisko.replit.dev/api/market_api.php';
 
@@ -175,117 +175,91 @@ function filterItems() {
 const addItemForm = document.getElementById('addItemForm');
 const addItemButton = document.querySelector('.btn.btn-success');
 
-// Listen for form submission
 addItemForm.addEventListener('submit', function(event) {
-  event.preventDefault();  
+  event.preventDefault();
 
-  // Get the values from the form fields
   const title = document.getElementById('itemTitle').value.trim();
   const description = document.getElementById('itemDescription').value.trim();
   const category = document.getElementById('itemCategory').value;
   const email = document.getElementById('itemEmail').value.trim();
-  const image = document.getElementById('itemImage').value.trim();
   const phone = document.getElementById('itemPhone').value.trim();
   const price = document.getElementById('itemPrice').value.trim();
-
+  const imageFile = document.getElementById('itemImageFile').files[0];
+if (!imageFile) {
+  alert('Please upload an image file');
+  valid = false;
+}
   let valid = true;
 
-  // Validate title (required)
-  if (!title) {
-    alert('Title is required');
-    valid = false;
+  // Validations (same as before)
+  if (!title) { alert('Title is required'); valid = false; }
+  if (!description) { alert('Description is required'); valid = false; }
+  if (!category || category === "Choose a category") { alert('Category is required'); valid = false; }
+
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  if (!email || !emailPattern.test(email)) {
+    alert('Please enter a valid email address'); valid = false;
   }
 
-  // Validate description (required)
-  if (!description) {
-    alert('Description is required');
-    valid = false;
+  const phonePattern = /^[0-9]+$/;
+  if (phone && !phonePattern.test(phone)) {
+    alert('Please enter a valid phone number'); valid = false;
   }
-  
 
-  
-  // Validate category (required and not the default value)
-if (!category || category === "" || category === "Choose a category") {
-  alert('Category is required');
+  if (!price || isNaN(price) || price <= 0) {
+    alert('Please enter a valid price'); valid = false;
+  }
+
+ // Must provide image URL (since no file upload option)
+if (!imageUrl) {
+  alert('Please provide an image URL');
   valid = false;
 }
 
-
-  // Validate email (required and correct format)
-  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  if (!email || !emailPattern.test(email)) {
-    alert('Please enter a valid email address');
-    valid = false;
-  }
-
-  // Validate phone (optional but should be valid if provided)
-  const phonePattern = /^[0-9]+$/;
-  if (phone && !phonePattern.test(phone)) {
-    alert('Please enter a valid phone number');
-    valid = false;
-  }
-
-  // Validate price (required and positive number)
-  if (!price || isNaN(price) || price <= 0) {
-    alert('Please enter a valid price');
-    valid = false;
-  }
-
-  // If all validations pass, submit the form
   if (valid) {
-    const newItem = {
-  title,
-  description,
-  category,
-  email,
-  image,
-  phone,
-  price,
-  createdAt: new Date().toISOString()
-};
-
-
-    console.log('Submitting item:', newItem);
-
-    // Add new item to the marketplace
     showLoading();
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('category', category);
+    formData.append('email', email);
+    formData.append('phone', phone);
+    formData.append('price', price);
+    formData.append('createdAt', new Date().toISOString());
+
+    formData.append('imageFile', imageFile);
 
     fetch(apiURL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newItem),
+      body: formData
     })
     .then(response => response.json())
     .then(data => {
+      if (data.success) {
+        itemsData.unshift(data.item);
 
-     if (data.success) {
-      // Add the new item
-      itemsData.unshift(data.item);
+        // Close the modal and reset the form
+        const addItemModalEl = document.getElementById('addItemModal');
+        const addItemModal = bootstrap.Modal.getInstance(addItemModalEl);
+        addItemModal.hide();
+        addItemForm.reset();
 
-      // Close the modal and reset the form
-      const addItemModalEl = document.getElementById('addItemModal');
-      const addItemModal = bootstrap.Modal.getInstance(addItemModalEl);
-      addItemModal.hide();
-      addItemForm.reset();
-
-      // Re-display the items
-      displayItems(itemsData);
-      createPagination(itemsData);
-    } else {
-      console.error('failed to add item:', data);
-    }
-  
-  })
+        displayItems(itemsData);
+        createPagination(itemsData);
+      } else {
+        console.error('Failed to add item:', data);
+      }
+    })
     .catch(error => {
       console.error('Error adding item:', error);
     })
-.finally(() => {
-  hideLoading(); 
-});
+    .finally(() => {
+      hideLoading();
+    });
   }
 });
+
 
 // Function to open the contact seller modal and populate it with seller data
 function openContactSellerModal(sellerEmail) {
@@ -354,7 +328,7 @@ document.getElementById('contactSellerForm').addEventListener('submit', function
 
 
 // Create the modal instance once when the script runs
-const itemDetailModalInstance = new bootstrap.Modal(document.getElementById('itemDetailModal'));
+const itemDetailModalInstance = new bootstrap.Modal(document.getElementById('itemDetailModal'), { keyboard: false });
 
 function attachViewDetailHandlers() {
   const viewDetailButtons = document.querySelectorAll('.view-details-btn');
@@ -392,7 +366,7 @@ function populateModalWithData(item) {
   
   // Add the same contact seller button to the modal as on the main page
   const contactButton = modal.querySelector('.contact-seller-btn');
-contactButton.setAttribute('data-item-id', item.id);
+contactButton.setAttribute('data-item-id', item.id || '');
 contactButton.addEventListener('click', () => {
   // Add any specific contact seller functionality here
   alert(`Contacting seller for item: ${item.id}`);
@@ -400,7 +374,7 @@ contactButton.addEventListener('click', () => {
 
   
   // Show the modal
-  $('#itemDetailModal').modal('show');
+  itemDetailModalInstance.show();
 }
 
 function showLoading() {
@@ -410,3 +384,5 @@ function showLoading() {
 function hideLoading() {
   document.getElementById('loadingIndicator').classList.add('d-none');
 }
+
+});
