@@ -1,6 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header('Content-Type: application/json');
-
+/*
 // Database configuration
 $servername = "localhost";
 $username = "root";
@@ -14,7 +17,18 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     echo json_encode(["status" => "error", "message" => "Connection failed: " . $conn->connect_error]);
     exit();
-}
+}*/
+
+
+
+$host = "localhost";
+$user = getenv("db_user");
+$pass = getenv("db_pass");
+$db = getenv("db_name");
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error)
+    die("Connection failed: " . $conn->connect_error);
+
 
 // Create notes table if not exists
 $sql = "CREATE TABLE IF NOT EXISTS notes (
