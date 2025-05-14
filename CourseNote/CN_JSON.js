@@ -12,7 +12,7 @@ const addButton = document.querySelector('.buttonAdd');
 // Fetch notes from the server
 async function fetchNotes() {
     try {
-        const response = await fetch('CN0.php');
+        const response = await fetch('https://9f6055a6-4f37-410e-bdd0-9ed4b8e4a48f-00-uw6bqvrayvp5.sisko.replit.dev/a/CN0.php');
         const data = await response.json();
 
        
@@ -60,7 +60,7 @@ async function handleAddNote(e) {
     }
 
     try {
-        const response = await fetch('CN0.php', {
+        const response = await fetch('https://9f6055a6-4f37-410e-bdd0-9ed4b8e4a48f-00-uw6bqvrayvp5.sisko.replit.dev/a/CN0.php', {
             method: 'POST',
             body: formData,
         });
