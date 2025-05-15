@@ -3,7 +3,7 @@
 // ==============================
 
 // Constants
-const API_URL = 'https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news ';
+const API_URL = 'http://localhost/News/api.php';
 const ITEMS_PER_PAGE = 6;
 
 // State Management
@@ -102,7 +102,13 @@ function renderArticles() {
         <p><strong>Category:</strong> ${article.category}</p>
         <p><strong>Views:</strong> ${article.views || 0}</p>
         <p>${truncateContent(article.content, 120)}</p>
-        <a href="NewsRead/Read.html?id=${article.id}" class="read-more">Read more →</a>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <a href="NewsRead/Read.html?id=${article.id}" class="read-more">Read more →</a>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${article.id}">Edit</button>
+            <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${article.id}">Delete</button>
+          </div>
+        </div>
       </div>
     `;
 
@@ -198,6 +204,70 @@ function hideSkeletonLoader() {
   if (skeletonLoader) skeletonLoader.style.display = 'none';
   if (newsContainer) newsContainer.style.display = 'flex';
 }
+
+// ==============================
+// Edit Article
+// ==============================
+async function editArticle(id) {
+  try {
+    // Fetch the article data
+    const response = await fetch(`${API_URL}?action=get_news&id=${id}`);
+    if (!response.ok) throw new Error('Failed to fetch article data');
+    
+    const article = await response.json();
+    
+    // Redirect to the edit page with the article data
+    window.location.href = `NewsEdit/Edit.html?id=${id}`;
+  } catch (error) {
+    console.error('Error editing article:', error);
+    showError('Failed to edit article. Please try again.');
+  }
+}
+
+// ==============================
+// Delete Article
+// ==============================
+async function deleteArticle(id) {
+  try {
+    // Confirm deletion
+    if (!confirm('Are you sure you want to delete this article? This action cannot be undone.')) {
+      return;
+    }
+    
+    // Send delete request
+    const response = await fetch(`${API_URL}?action=delete_news&id=${id}`, {
+      method: 'DELETE'
+    });
+    
+    if (!response.ok) throw new Error('Failed to delete article');
+    
+    // Show success message
+    alert('Article deleted successfully!');
+    
+    // Refresh the articles list
+    fetchArticles();
+  } catch (error) {
+    console.error('Error deleting article:', error);
+    showError('Failed to delete article. Please try again.');
+  }
+}
+
+// ==============================
+// Event Delegation for Edit/Delete Buttons
+// ==============================
+document.addEventListener('click', function(event) {
+  // Handle edit button clicks
+  if (event.target.classList.contains('edit-btn')) {
+    const articleId = event.target.getAttribute('data-id');
+    editArticle(articleId);
+  }
+  
+  // Handle delete button clicks
+  if (event.target.classList.contains('delete-btn')) {
+    const articleId = event.target.getAttribute('data-id');
+    deleteArticle(articleId);
+  }
+});
 
 // ==============================
 // Initialization

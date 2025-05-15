@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     loadArticle();
     loadComments();
+    setupCommentForm();
   });
   
   /**
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function loadArticle() {
     const articleId = getArticleIdFromURL();
-    const apiURL = `https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news/${articleId}`;
+    const apiURL = `http://localhost/News/api.php?action=get_news&id=${articleId}`;
     fetch(apiURL)
       .then(response => {
         if (!response.ok) {
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function loadComments() {
     const articleId = getArticleIdFromURL();
-    const commentsURL = `https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news/${articleId}/comments`;
+    const commentsURL = `http://localhost/News/api.php?action=get_comments&news_id=${articleId}`;
   
     fetch(commentsURL)
       .then(response => {
@@ -121,3 +122,61 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
   
+  /**
+   * Setup the comment submission form
+   */
+  function setupCommentForm() {
+    const commentForm = document.getElementById('comment-form');
+    const commentStatus = document.getElementById('comment-status');
+    
+    commentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const nameInput = document.getElementById('comment-name');
+      const textInput = document.getElementById('comment-text');
+      const articleId = getArticleIdFromURL();
+      
+      if (!nameInput.value.trim() || !textInput.value.trim()) {
+        commentStatus.innerHTML = `<div class="alert alert-danger">Please fill in all fields</div>`;
+        return;
+      }
+      
+      try {
+        commentStatus.innerHTML = `<div class="alert alert-info">Submitting comment...</div>`;
+        
+        const response = await fetch(`http://localhost/News/api.php?action=create_comment&news_id=${articleId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            user: nameInput.value.trim(),
+            text: textInput.value.trim()
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to submit comment');
+        }
+        
+        // Clear the form
+        nameInput.value = '';
+        textInput.value = '';
+        
+        // Show success message
+        commentStatus.innerHTML = `<div class="alert alert-success">Comment submitted successfully!</div>`;
+        
+        // Reload comments to show the new one
+        loadComments();
+        
+        // Clear success message after 3 seconds
+        setTimeout(() => {
+          commentStatus.innerHTML = '';
+        }, 3000);
+        
+      } catch (error) {
+        console.error('Error submitting comment:', error);
+        commentStatus.innerHTML = `<div class="alert alert-danger">Failed to submit comment. Please try again.</div>`;
+      }
+    });
+  }

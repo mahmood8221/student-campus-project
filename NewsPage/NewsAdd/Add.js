@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
       publishButton.disabled = true;
       publishButton.innerHTML = 'Publishing...';
 
-      let response = await fetch('https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news', {
+      let response = await fetch('http://localhost/News/api.php?action=create_news', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!response.ok) {
         // Try again without image
         newsData.image = null;
-        response = await fetch('https://680bf1c32ea307e081d2c4f6.mockapi.io/api/v1/news', {
+        response = await fetch('http://localhost/News/api.php?action=create_news', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
