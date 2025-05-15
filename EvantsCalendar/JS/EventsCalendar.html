@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Events Calendar - Campus Hub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css " />
+    <link rel="stylesheet" href="Style.css" />
 </head>
 <body class="calendar-page">
     <div class="rgb-background"></div>
@@ -19,7 +19,6 @@
                 <button class="search-btn"><i class="fas fa-search"></i></button>
             </div>
         </div>
-        
     </header>
     <main class="container main-content">
         <aside class="filters" aria-label="Event filters">
@@ -31,6 +30,8 @@
                 <option>Academic</option>
                 <option>Social</option>
                 <option>Sports</option>
+                <option>Workshop</option>
+                <option>Cultural</option>
             </select>
             <label for="sort">Sort By</label>
             <select id="sort">
@@ -40,6 +41,7 @@
         </aside>
         <section class="event-section">
             <div id="error" class="error-message" role="alert"></div>
+            <div id="events-container" class="event-grid"></div>
             <div class="pagination" id="pagination">
                 <a href="#">&laquo;</a>
                 <a href="#" class="active">1</a>
@@ -76,7 +78,6 @@
             <p><i class="fas fa-map-marker-alt"></i> Address: University Avenue, Sakhir, Bahrain</p>
         </div>
     </div>
-    
     <div id="privacyModal" class="modal">
         <div class="modal-content">
             <a href="#" class="close-modal">&times;</a>
@@ -84,6 +85,8 @@
             <p>We are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information in compliance with international data protection regulations.</p>
             <p>All data collected through this platform is used solely for the purpose of event management and will not be shared with third parties without explicit consent.</p>
         </div>
-    </div> 
+    </div>
+
+    <script src="calendar.js" defer></script>
 </body>
 </html>

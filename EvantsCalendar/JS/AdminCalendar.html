@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin - Manage Events</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css " />
+  <link rel="stylesheet" href="Style.css" />
 </head>
 <body class="admin-page">
   <!-- Background Animation -->
@@ -17,7 +17,7 @@
       <a href="EventsCalendar.html" class="btn back-btn">
         <i class="fas fa-arrow-left"></i> Event Calendar
       </a>
-      <h1>Event Management </h1>
+      <h1>Event Management</h1>
     </nav>
   </header>
 
@@ -29,72 +29,62 @@
         <h2><i class="fas fa-calendar-plus"></i> Create New Event</h2>
         <p class="form-description">Fill out the form to add a new campus event</p>
       </div>
-      
+
       <form id="eventForm" class="event-form">
         <div id="globalError" class="error-message" aria-live="polite"></div>
 
         <div class="form-group">
-          <label for="eventTitle" class="required">
-            Event Title
-          </label>
-          <input type="text" id="eventTitle" name="title" required 
-                 placeholder="Enter event title" class="form-input">
+          <label for="eventTitle" class="required">Event Title</label>
+          <input type="text" id="eventTitle" name="title" required placeholder="Enter event title" class="form-input">
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="eventDate" class="required">
-              Date
-            </label>
+            <label for="eventDate" class="required">Date</label>
             <input type="date" id="eventDate" name="date" required class="form-input">
           </div>
 
           <div class="form-group">
-            <label for="eventTime" class="required">
-              Time
-            </label>
+            <label for="eventTime" class="required">Time</label>
             <input type="time" id="eventTime" name="time" required class="form-input">
           </div>
         </div>
 
         <div class="form-group">
-          <label for="eventLocation" class="required">
-            Location
-          </label>
-          <input type="text" id="eventLocation" name="location" required 
-                 placeholder="Enter venue" class="form-input">
+          <label for="eventLocation" class="required">Location</label>
+          <input type="text" id="eventLocation" name="location" required placeholder="Enter venue" class="form-input">
         </div>
 
         <div class="form-group">
-          <label for="eventOrganizer" class="required">
-            Organized By
-          </label>
-          <input type="text" id="eventOrganizer" name="organizer" required 
-                 placeholder="Enter organizer name" class="form-input">
+          <label for="eventOrganizer" class="required">Organized By</label>
+          <input type="text" id="eventOrganizer" name="organizer" required placeholder="Enter organizer name"
+            class="form-input">
         </div>
 
         <div class="form-group">
-          <label for="eventDescription">
-            Description
-          </label>
-          <textarea id="eventDescription" name="description" rows="4" 
-                    placeholder="Event details..." class="form-textarea"></textarea>
+          <label for="eventDescription">Description</label>
+          <textarea id="eventDescription" name="description" rows="4" placeholder="Event details..."
+            class="form-textarea"></textarea>
         </div>
 
         <!-- Image Upload -->
         <div class="form-group">
-          <label for="eventImage">Event Image</label>
-          <input type="file" id="eventImage" name="image" accept="image/*" class="form-input">
+          <label for="eventImage">Event Image (Upload)</label>
+          <input type="file" id="eventImage" accept="image/*" class="form-input">
           <div class="image-preview-container">
             <img id="imagePreview" class="image-preview" src="" alt="Preview will appear here" style="display: none;" />
           </div>
         </div>
 
+        <!-- Image Link -->
         <div class="form-group">
-          <label for="eventCategory" class="required">
-            Event Type
-          </label>
-          <select id="eventCategory" name="category" required class="form-select">
+          <label for="eventImageLink">Event Image (Link)</label>
+          <input type="url" id="eventImageLink" placeholder="Enter image URL" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label for="eventCategory" class="required">Event Type</label>
+          <select id="eventCategory" required class="form-select">
             <option value="">Select category</option>
             <option>Academic</option>
             <option>Social</option>
@@ -121,7 +111,7 @@
         <h2><i class="fas fa-info-circle"></i> Event Preview</h2>
         <p class="detail-description">Review your event details before submission</p>
       </div>
-      <div class="event-info">
+      <div id="previewContent" class="event-info">
         <div class="empty-state">
           <i class="fas fa-calendar-alt"></i>
           <p>No event details to display yet</p>
@@ -130,24 +120,6 @@
     </section>
   </main>
 
-  <!-- Image preview script -->
-  <script>
-    const eventImageInput = document.getElementById("eventImage");
-    const imagePreview = document.getElementById("imagePreview");
-
-    eventImageInput.addEventListener("change", function () {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          imagePreview.src = e.target.result;
-          imagePreview.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-      } else {
-        imagePreview.style.display = "none";
-      }
-    });
-  </script>
+  <script src="admin.js" defer></script>
 </body>
 </html>
