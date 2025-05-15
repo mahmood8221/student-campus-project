@@ -184,34 +184,12 @@ addItemForm.addEventListener('submit', function(event) {
   const email = document.getElementById('itemEmail').value.trim();
   const phone = document.getElementById('itemPhone').value.trim();
   const price = document.getElementById('itemPrice').value.trim();
-  const imageFile = document.getElementById('itemImageFile').files[0];
-if (!imageFile) {
-  alert('Please upload an image file');
-  valid = false;
-}
-  let valid = true;
+  
+ 
+  const imageUrl = document.getElementById('itemImageUrl').value.trim();
+let valid = true;
 
-  // Validations (same as before)
-  if (!title) { alert('Title is required'); valid = false; }
-  if (!description) { alert('Description is required'); valid = false; }
-  if (!category || category === "Choose a category") { alert('Category is required'); valid = false; }
-
-  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  if (!email || !emailPattern.test(email)) {
-    alert('Please enter a valid email address'); valid = false;
-  }
-
-  const phonePattern = /^[0-9]+$/;
-  if (phone && !phonePattern.test(phone)) {
-    alert('Please enter a valid phone number'); valid = false;
-  }
-
-  if (!price || isNaN(price) || price <= 0) {
-    alert('Please enter a valid price'); valid = false;
-  }
-
- // Must provide image URL (since no file upload option)
-if (!imageUrl) {
+  if (!imageUrl) {
   alert('Please provide an image URL');
   valid = false;
 }
@@ -227,10 +205,9 @@ if (!imageUrl) {
     formData.append('phone', phone);
     formData.append('price', price);
     formData.append('createdAt', new Date().toISOString());
+    formData.append('imageUrl', imageUrl);
 
-    formData.append('imageFile', imageFile);
-
-    fetch(apiURL, {
+fetch(apiURL, {
       method: 'POST',
       body: formData
     })
