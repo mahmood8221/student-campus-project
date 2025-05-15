@@ -5,7 +5,7 @@
 * @copyright 2007 Jakub Vrana
 * @license https://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
 * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
-* @version 4.8.1
+* @version 4.8.1 
 */function
 adminer_errors($cc,$ec){return!!preg_match('~^(Trying to access array offset on value of type null|Undefined array key)~',$ec);}error_reporting(6135);set_error_handler('adminer_errors',E_WARNING);$wc=!preg_match('~^(unsafe_raw)?$~',ini_get("filter.default"));if($wc||ini_get("filter.default_flags")){foreach(array('_GET','_POST','_COOKIE','_SERVER')as$X){$fh=filter_input_array(constant("INPUT$X"),FILTER_UNSAFE_RAW);if($fh)$$X=$fh;}}if(function_exists("mb_internal_encoding"))mb_internal_encoding("8bit");function
 connection(){global$g;return$g;}function
