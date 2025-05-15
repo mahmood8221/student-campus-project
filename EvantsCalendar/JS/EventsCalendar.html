@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Events Calendar - Campus Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css " />
+    <link rel="stylesheet" href="Style.css" />
+</head>
+<body class="calendar-page">
+    <div class="rgb-background"></div>
+    <header>
+        <div class="header-content">
+            <h1>Events Calendar Campus Hub</h1>
+            <p class="subtitle">Discover exciting experiences and campus activities. Stay updated with all upcoming events.</p>
+            <div class="search-container">
+                <a href="../index.html" class="home-link">Home</a>
+                <input type="text" class="search-input" placeholder="Search events...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </header>
+    <main class="container main-content">
+        <aside class="filters" aria-label="Event filters">
+            <h1>Filters</h1>
+            <input type="search" id="search" placeholder="Search events..." aria-label="Search events" />
+            <label for="category-filter">Category</label>
+            <select id="category-filter" aria-label="Filter by category">
+                <option>All Categories</option>
+                <option>Academic</option>
+                <option>Social</option>
+                <option>Sports</option>
+                <option>Workshop</option>
+                <option>Cultural</option>
+            </select>
+            <label for="sort">Sort By</label>
+            <select id="sort">
+                <option>Date: Ascending</option>
+                <option>Date: Descending</option>
+            </select>
+        </aside>
+        <section class="event-section">
+            <div id="error" class="error-message" role="alert"></div>
+            <div id="events-container" class="event-grid"></div>
+            <div class="pagination" id="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">&raquo;</a>
+            </div>
+        </section>
+    </main>
+    <a href="AdminCalendar.html" class="Admin-link"><i class="fas fa-plus"></i></a>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#aboutModal" id="aboutLink">About</a>
+                <a href="#contactModal" id="contactLink">Contact</a>
+                <a href="#privacyModal" id="privacyLink">Privacy Policy</a>
+            </div>
+            <p class="copyright">&copy; University of Bahrain - Campus 2025. All rights reserved.</p>
+        </div>
+    </footer>
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <h2 class="modal-title">About Us</h2>
+            <p>We are a team dedicated to providing innovative solutions and cutting-edge technologies to enhance campus life and student engagement.</p>
+        </div>
+    </div>
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <h2 class="modal-title">Contact Information</h2>
+            <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@uob2025.com">info@uob2025.com</a></p>
+            <p><i class="fas fa-phone"></i> Phone: <a href="tel:+97343212343">+973 4321 2343</a></p>
+            <p><i class="fas fa-map-marker-alt"></i> Address: University Avenue, Sakhir, Bahrain</p>
+        </div>
+    </div>
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-modal">&times;</a>
+            <h2 class="modal-title">Privacy Policy</h2>
+            <p>We are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information in compliance with international data protection regulations.</p>
+            <p>All data collected through this platform is used solely for the purpose of event management and will not be shared with third parties without explicit consent.</p>
+        </div>
+    </div>
+
+    <script src="calendar.js" defer></script>
+</body>
+</html>
